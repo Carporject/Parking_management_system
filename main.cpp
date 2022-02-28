@@ -10,7 +10,7 @@ int main(){
     current *TAIL=NULL;
 	int num;
 	cout<<"주차관리시스템";
-	cout<<"--------------------------------";
+	cout<<"--------------------------------\n";
 	
 	cout<<"1.입차\n";
 	cout<<"2.출차\n";
@@ -41,5 +41,6 @@ int main(){
 		 	break;
 		 				 
 		 }
+	}
 	return 0;
 }

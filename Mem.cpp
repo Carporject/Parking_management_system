@@ -1,5 +1,6 @@
 #include "Mem.h"
 #include "Fileload.h"
+#include<map>
 #include<cstring>
 bool Mem::findPhoneNum(current *HEAD){
     current *tmp;
