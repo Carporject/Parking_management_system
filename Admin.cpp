@@ -21,12 +21,15 @@ void Admin::loadExit(){
             char *ptr = strtok(buffer, ",");
 
             while(ptr != NULL){
-                getoneline_.push_back(ptr);
+                string str(ptr);
+                getoneline_.push_back(str);
+
                 ptr = strtok(NULL, " ");
                 vector<string> getoneline_;
             }
         }
         memlist_.push_back(getoneline_);
+        lineCount++;
         fclose(inputFile);
 
     }else {
@@ -34,22 +37,39 @@ void Admin::loadExit(){
     }
 
     //%%%%%%file load 된 것 확인%%%%%
-    for(int i=0; i<memlist_.size(); i++){
+    /*for(int i=0; i<memlist_.size(); i++){
         for(int j=0; j<getoneline_.size(); j++){
-            cout << memlist_[i][j] << " ";
+            cout << i  << " ====" << j  << " " ;
+            cout << memlist_[i][j] << '\n';
         }
-        cout << '\n';
+    }*/
+
+    int j=0;
+
+    while(j <= getoneline_.size()+11){
+        car_num.push_back(memlist_[0][j]);
+        phone_num.push_back(memlist_[0][j+1]);
+        j += 11;
     }
+
+    for(auto a : car_num){
+        cout << a << " ";
+    }cout << '\n';
+    for(auto a : phone_num){
+        cout << a << " ";
+    }cout << '\n';
+
 
 }
 
 void Admin::perDay(){
     //차량번호, 전화번호, 입차일, 출차일, 정산요금
-    vector<vector<string>> mlist;
+    vector<vector<string>> &mlist = this->memlist_;
 
-    //TODO -> segmentation fault
 
-    cout << this->memlist_[0][2] << endl;
+
+
+
 
 }
 

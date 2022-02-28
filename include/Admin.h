@@ -8,13 +8,15 @@ using namespace std;
 
 class Admin{
 private:
-    string car_num;
-    string phone_num;
+    vector<string> car_num;
+    vector<string> phone_num;
+    vector<string> cost;
+    vector<string> enter_date;
+    vector<string> exit_date;
+
     int is_mem;
     int total_cost;
 
-    time_t enter_date;
-    time_t exit_date;
 
 public:
 
