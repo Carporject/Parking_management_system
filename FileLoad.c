@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./include/FileLoad.h"
+#include "Car_list.h"
 #include "math.h"
 #include "string.h"
 
- void saveExit( Car_list tmp, int cost, char* exit_date ){
+ void saveExit( current tmp, int cost, char* exit_date ){
 
      printf("saveExit 시작\n");
 
@@ -18,7 +19,7 @@
 
      fputs(tmp.car_num,fp);
      fputs(", ",fp);
-     fputs(tmp.phone_num,fp);
+     fputs(tmp.car_phone,fp);
      fputs(", ",fp);
      fputs(tmp.enter_date,fp);
      fputs(", ",fp);
@@ -31,25 +32,24 @@
      fclose(fp);
  }
 
-void savePos( Car_list *HEAD){
+void savePos( current *HEAD){
 
      printf("savePos 시작\n");
 
      FILE *fp = fopen("parking.txt","a");
      printf("파일 열기 성공\n");
 
-     Car_list *tmp;
+     current *tmp;
      tmp = HEAD;
 
      while(tmp){
         fputs(tmp->car_num,fp);
         fputs(", ",fp);
-        fputs(tmp->phone_num,fp);
+        fputs(tmp->car_phone,fp);
         fputs(", ",fp);
         fputs(tmp->enter_date,fp);
         fputs(", ",fp);
-        fputs(tmp->car_pos,fp);
-        fputs("\n",fp);
+        fprintf(fp, "%d \n",tmp->car_pos);
 
         tmp = tmp->next;
      }
@@ -59,13 +59,13 @@ void savePos( Car_list *HEAD){
      fclose(fp);
 }
 
-void loadPos(Car_list **HEAD, Car_list **TAIL){
+void loadPos(current **HEAD, current **TAIL){
     FILE *fp = fopen("parking.txt", "r");
 
-    Car_list *tmp;
+    current *tmp;
     
     while(1){
-        tmp = (Car_list*)malloc(sizeof(Car_list));
+        tmp = (current*)malloc(sizeof(current));
 
         if(tmp == NULL){//예외처리
 
@@ -96,16 +96,16 @@ void loadPos(Car_list **HEAD, Car_list **TAIL){
                 if(idx == 0 && (string[idx] == ' ' ||string[idx] =='\n')){
                     continue;
                 }
-                tmp->phone_num[idx++] = string[idx];
+                tmp->car_phone[idx++] = string[idx];
             }
-            tmp->phone_num[idx] = '\0';
+            tmp->car_phone[idx] = '\0';
             
             idx = 0;
             while(string[idx] != ','){
                 if(idx == 0 && (string[idx] == ' ' ||string[idx] =='\n')){
                     continue;
                 }
-                tmp->phone_num[idx++] = string[idx];
+                tmp->car_phone[idx++] = string[idx];
             }
             tmp->enter_date[idx] = '\0';
             
