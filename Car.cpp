@@ -72,7 +72,6 @@ void Car::calc_time(string *date){
     string min = to_string(pLocal->tm_min);
 
     *date = year+" "+mon+" "+day+" "+hour+" "+min;
-
     return;
 }
 

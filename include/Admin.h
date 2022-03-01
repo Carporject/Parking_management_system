@@ -12,7 +12,6 @@ class Admin{
 private:
     string car_num;
     string phone_num;
-    string cost;
 
     string enter_date;
     string exit_date;
@@ -23,6 +22,8 @@ private:
 
 protected:
     int lineCount = 0;
+    int month, day, year;
+    vector<int> cost;
     vector<string> memlist_[INT16_MAX];
 
 public:
@@ -35,7 +36,7 @@ public:
     void printMemList();
     void perDay();
     void perMonth();
+    void analyzeGraph();
 
-    int change_month[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
 };

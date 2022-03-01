@@ -1,5 +1,5 @@
 #include "include/Admin.h"
-#include <iomanip>
+#include <algorithm>
 
 
 void Admin::loadExit(){
@@ -47,7 +47,7 @@ void Admin::printMemList(){
 
 void Admin::perDay(){
 
-    int month, day;
+    int change_month[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
     string exit_date = this->memlist_[lineCount-1][3];  //출차일 기준으로 7일 계산
 
@@ -108,7 +108,6 @@ void Admin::perDay(){
 
 }
 
-
 void Admin::perMonth() {
     int month;
 
@@ -157,6 +156,58 @@ void Admin::perMonth() {
 
 }
 
+void Admin::analyzeGraph(){
+
+    // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
+    int month_list[13] = {1,2,3,4,5,6,7,8,9,10,11,12};
+
+    for(int m : month_list){
+        total_month_cost = 0;
+        for(int k=lineCount-2; k>=0; k--){
+
+            int diffmonth;
+
+            string diff = this->memlist_[k][3];
+
+            string dm = "";
+
+            for(int i=1; i<11; i++){ 
+                if(i>=6 && i<=7){
+                    dm += diff[i];
+                }
+            }
+            diffmonth= stoi(dm);
+
+            if(m == diffmonth){
+                string cost_ = this->memlist_[k][4];
+                total_month_cost += stoi(cost_);
+            }
+        }
+        cost.push_back(total_month_cost);
+    }
+    
+    int max = *max_element(cost.begin(), cost.end());
+    max = max/10000;
+
+    for(max ; max>0; max--){
+        int costj = 0;
+        for(int j=0; j<13; j++){
+            costj = cost[j] / 10000;
+            if(costj >= max){
+                cout << " ░░░ ";
+            }else cout << "     ";
+        }
+        cout <<'\n';
+    }
+    cout << "=============================================================" << endl; 
+    cout << " 1월  2월  3월  4월  5월  6월  7월  8월  9월  10월  11월  12월" << endl; 
+    cout << "=============================================================" << endl; 
+
+
+
+}
+
+
 
 
 int main(){
@@ -172,6 +223,7 @@ int main(){
         cout << "1. 전체 회원 리스트 " << '\n';
         cout << "2. 일별 정산 요금 조회" << '\n';
         cout << "3. 월별 정산 요금 조회" << '\n';
+        cout << "4. 정산 내역 출력" << '\n';
 
 
         cin >> select;
@@ -186,6 +238,9 @@ int main(){
             case 3:
                 a->perMonth();
                 continue;
+            case 4:
+                a->analyzeGraph();
+                continue;
             case 0:
                 break;
             default:
@@ -194,5 +249,4 @@ int main(){
     }
 
     return 0;
-
 }

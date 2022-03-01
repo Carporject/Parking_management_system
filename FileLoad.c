@@ -106,7 +106,7 @@ void loadPos(current **HEAD, current **TAIL){
                 *TAIL=tmp;
             }
 
-            printf("노드 완료");
+            // printf("노드 완료");
             
         }
         
