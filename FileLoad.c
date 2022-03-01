@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./include/FileLoad.h"
-#include "Car_list.h"
+#include "./include/Car_list.h"
 #include "math.h"
 #include "string.h"
 
- void saveExit( current tmp, int cost, char* exit_date ){
+ void saveExit(current *tmp, int cost, char* exit_date ){
 
      printf("saveExit 시작\n");
 
@@ -17,11 +17,11 @@
      
      //순서 : tmp->car_num, tmp-> phone_num, temp -> enter_date, exit_date, cost
 
-     fputs(tmp.car_num,fp);
+     fputs(tmp->car_num,fp);
      fputs(", ",fp);
-     fputs(tmp.car_phone,fp);
+     fputs(tmp->car_phone,fp);
      fputs(", ",fp);
-     fputs(tmp.enter_date,fp);
+     fputs(tmp->enter_date,fp);
      fputs(", ",fp);
      fputs(exit_date,fp);
      fputs(", ",fp);
