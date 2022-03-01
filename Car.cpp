@@ -65,14 +65,13 @@ void Car::calc_time(string *date){
 
     time_t curTime = time(NULL);
     struct tm *pLocal = localtime(&curTime);
-    string year = to_string(pLocal->tm_hour+1900);
+    string year = to_string(pLocal->tm_year+1900);
     string mon = to_string(pLocal->tm_mon+1);
     string day = to_string(pLocal->tm_mday);
     string hour = to_string(pLocal->tm_hour);
     string min = to_string(pLocal->tm_min);
 
     *date = year+" "+mon+" "+day+" "+hour+" "+min;
-
     return;
 }
 
