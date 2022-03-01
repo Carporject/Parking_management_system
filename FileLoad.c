@@ -138,6 +138,7 @@ void loadPos(current **HEAD, current **TAIL){
                 (*TAIL)->next = tmp;
                 *TAIL=tmp;
             }
+           
         }
         
 

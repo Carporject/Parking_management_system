@@ -2,13 +2,21 @@
 #include"./include/Parking.h"
 #include"./include/Mem.h"
 #include"./include/Car_list.h"
+#include"./include/Car.h"
+#include"./include/FileLoad.h"
 #include<iomanip>
+#include<cstring>
 using namespace std;
+
 int main(){
 	Parking *p=new Parking();
 	Mem m;
+	Car c;
+
+	
 	current *HEAD=NULL;
     current *TAIL=NULL;
+
 	int num=0;
 	while(true){
 		cout<<"주차관리시스템\n";
@@ -20,6 +28,7 @@ int main(){
 		cout<<"4.번호조회\n";
 		cout<<"5.회원등록\n";
 		cout<<"6.위치확인\n";
+		cout<<"7.load\n";
 		cout<<"9.종료\n";
 		cout<<"---------------------------------------\n";
 		cout<<"---------------------------------------\n";
@@ -46,11 +55,13 @@ int main(){
 		 	m.registerMem();
 			break;
 		 case(6)://위치 반환
+		 	c.findPos(HEAD);
 		 	break;
 		 case(9)://종료
 		 	return 0;
 		 				 
 		 }
 	}
+	delete p;
 	return 0;
 }

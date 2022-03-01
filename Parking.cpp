@@ -3,7 +3,8 @@
 #include "./include/Parking.h"
 #include "./include/Car.h"
 #include"./include/FileLoad.h"
-
+// #include<iostream>
+// using namespace std;
 Parking::Parking(){
     total=20;
     empty_area=0;
@@ -52,8 +53,10 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
 
     //3. 입차 시간 기록 car *p p->enter_date=calc_time()    
     Car *ttime=new Car;
-    string enterd=(tmp->enter_date); //tmp->enter_date:char[] -> string 변환
-    // ttime->calc_time(&enterd); //현재시간 불러오기
+    string enterd=""; //tmp->enter_date:char[] -> string 변환
+    ttime->calc_time(&enterd); //현재시간 불러오기
+    cout<<"시간"<<enterd;
+    // strcpy(tmp->enter_date,enterd.c_str());
     // tmp->next = NULL;                  //segementation 오류 지점
     // (*TAIL)->next = tmp;
     // (*TAIL)=tmp;
@@ -83,38 +86,40 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
     char exitd[100]="";
     // strcpy(exitd,exit_date.c_str());//exit_date string to char[]
 
-    //Car함수완료 후 다시 수행
 
-    // while(tmp){
-    //     if(tmp-> car_num == exit_carnum){
-    //         // p->calc_time(&exit_date);  // 현재 시간을 받아오고
-    //         // p->calc_cost(tmp, &cost); //정산을 하고
-    //         saveExit(tmp,cost,exitd);
-    //         if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
-    //             (*HEAD)=(*HEAD)->next;
-    //         }
-    //         else if(tmp == (*TAIL)){
-    //             (*TAIL) = before;
-    //             (*TAIL)->next = NULL;
-    //         }
-    //         else {
-    //             before->next = tmp ->next;
-    //         } 
-    //         free(tmp); //해당 tmp해제(삭제)
-    //         break;
-    //     }
-    //     before = tmp;
-    //     tmp = tmp -> next;
-    //     return true;
-    // }
+    //Car함수완료 후 다시 수행
+    cout<<tmp->car_num;
+
+    
+    while(tmp){
+        if(strcat(tmp-> car_num,exit_carnum)==0){
+            // p->calc_time(&exit_date);  // 현재 시간을 받아오고
+            // p->calc_cost(tmp, &cost); //정산을 하고
+            saveExit(tmp,cost,exitd);
+            if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
+                (*HEAD)=(*HEAD)->next;
+            }
+            else if(tmp == (*TAIL)){
+                (*TAIL) = before;
+                (*TAIL)->next = NULL;
+            }
+            else {
+                before->next = tmp ->next;
+            } 
+            free(tmp); //해당 tmp해제(삭제)
+            break;
+        }
+        before = tmp;
+        tmp = tmp -> next;
+        return true;
+    }
     if(tmp==NULL){
         cout<<"출차실 차량번호를 찾을 수 없습니다.\n";
         cout<<endl;
     }
     delete p;
     return false;
-            
-
+        
     
 }
 
