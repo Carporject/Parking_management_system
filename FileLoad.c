@@ -33,103 +33,70 @@
      fclose(fp);
  }
 
-void savePos( current *HEAD){
+// void savePos(current *HEAD){
 
-     printf("savePos 시작\n");
+//      printf("savePos 시작\n");
 
-     FILE *fp = fopen("parking.txt","a");
-     printf("파일 열기 성공\n");
+//      FILE *fp = fopen("parking.txt","a");
+//      printf("파일 열기 성공\n");
 
-     current *tmp;
-     tmp = HEAD;
+//      current *tmp;
+//      tmp = HEAD;
+//      printf("%s", tmp->car_num);
+//      while(tmp){
+//         fputs(tmp->car_num,fp);
+//         fputs(",",fp);
+//         fputs(tmp->car_phone,fp);
+//         fputs(",",fp);
+//         fputs(tmp->enter_date,fp);
+//         fputs(",",fp);
+//         fprintf(fp, "%d \n",tmp->car_pos);
 
-     while(tmp){
-        fputs(tmp->car_num,fp);
-        fputs(", ",fp);
-        fputs(tmp->car_phone,fp);
-        fputs(", ",fp);
-        fputs(tmp->enter_date,fp);
-        fputs(", ",fp);
-        fprintf(fp, "%d \n",tmp->car_pos);
+//         tmp = tmp->next;
+//      }
 
-        tmp = tmp->next;
-     }
+//      printf("파일 저장 끝\n");
 
-     printf("파일 저장 끝\n");
-
-     fclose(fp);
-}
+//      fclose(fp);
+// }
 
 void loadPos(current **HEAD, current **TAIL){
-    FILE *fp = fopen("parking.txt", "r");
+    printf("loadPos\n");
 
-    current *tmp;
-    
-    while(1){
-        tmp = (current*)malloc(sizeof(current));
-
-        if(tmp == NULL){//예외처리
-
-        }
+    FILE *fp = NULL;
+    fp = fopen("parking.txt", "r");
+    if(fp!=NULL){
 
         char string[100];
 
-        //파일 받아오는거 완성하면 수정할것!!!
-        while (1)
+        while(1)
         {
+            current *tmp;
+            tmp = (current*)malloc(sizeof(current));
+            
             fgets(string, sizeof(string), fp);
-            if(feof(fp)){
+            if(feof(fp))
                 break;
-            }
-            printf("%s", string);
-            
-            int idx = 0;
-            while(string[idx] != ','){
-                if(idx == 0 && (string[idx] == ' ' ||string[idx] =='\n')){
-                    continue;
-                }
-                tmp->car_num[idx++] = string[idx];
-            }
-            tmp->car_num[idx] = '\0';
-            
-            idx = 0;
-            while(string[idx] != ','){
-                if(idx == 0 && (string[idx] == ' ' ||string[idx] =='\n')){
-                    continue;
-                }
-                tmp->car_phone[idx++] = string[idx];
-            }
-            tmp->car_phone[idx] = '\0';
-            
-            idx = 0;
-            while(string[idx] != ','){
-                if(idx == 0 && (string[idx] == ' ' ||string[idx] =='\n')){
-                    continue;
-                }
-                tmp->car_phone[idx++] = string[idx];
-            }
-            tmp->enter_date[idx] = '\0';
-            
-            
-            idx = 0;
-            while(string[idx] != ','){
-                if(idx == 0 && (string[idx] == ' ' ||string[idx] =='\n')){
-                    continue;
-                }
-                tmp->enter_date[idx++] = string[idx];
-            }
-            tmp->enter_date[idx] = '\0';
 
-            idx = 0;
-            int p = 0;
-            while(string[idx] != ','){
-                if(idx == 0 && (string[idx] == ' ' ||string[idx] =='\n')){
-                    continue;
-                }
-                tmp->car_pos += (tmp->car_pos)*10 + string[idx]-'0';
-            }
+            string[strlen(string)-1] = '\0';
+            printf("%s\n",string);
+         
             
+            char *ptr = strtok(string, ",");
+            strcpy(tmp->car_num, ptr);
 
+            ptr = strtok(NULL, ",");
+            strcpy(tmp->car_phone, ptr);
+
+            ptr = strtok(NULL, ",");
+            strcpy(tmp->enter_date, ptr);
+            
+            ptr = strtok(NULL,",");
+            for(int i = 0; i<strlen(ptr); i++){
+                tmp->car_pos = tmp->car_pos*10 + (ptr[i]-'0');
+            }
+
+            printf("%d\n",tmp->car_pos);
 
             if(*HEAD == NULL){
                 *HEAD = *TAIL = tmp;
@@ -138,9 +105,14 @@ void loadPos(current **HEAD, current **TAIL){
                 (*TAIL)->next = tmp;
                 *TAIL=tmp;
             }
+
+            printf("노드 완료");
+            
         }
         
 
+    }else{
+        printf("파일이 존재하지 않습니다.\n");
     }
     fclose(fp);
 }
