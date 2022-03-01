@@ -17,6 +17,7 @@
      
      //순서 : tmp->car_num, tmp-> phone_num, temp -> enter_date, exit_date, cost
 
+
      fputs(tmp->car_num,fp);
      fputs(", ",fp);
      fputs(tmp->car_phone,fp);
