@@ -10,15 +10,16 @@ using namespace std;
 
 class Admin{
 private:
-    vector<string> car_num;
-    vector<string> phone_num;
-    vector<string> cost;
+    string car_num;
+    string phone_num;
+    string cost;
 
     string enter_date;
     string exit_date;
 
     int is_mem;
     int total_cost;
+    int total_month_cost;
 
 protected:
     int lineCount = 0;
@@ -31,7 +32,7 @@ public:
     }
 
     void loadExit();
-    void print();
+    void printMemList();
     void perDay();
     void perMonth();
 

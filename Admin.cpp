@@ -31,7 +31,7 @@ void Admin::loadExit(){
 
 }
 
-void Admin::print(){
+void Admin::printMemList(){
 
     cout << "===================================================================="<<'\n';
     cout << "  차량번호      전화번호         입차일           출차일       요금"<<'\n';
@@ -108,9 +108,52 @@ void Admin::perDay(){
 }
 
 
-void Admin::perMonth(){
-    cout << "stilling upgrading........" << endl;
+void Admin::perMonth() {
+    int month;
 
+    string exit_date = this->memlist_[lineCount-1][3];  //출차일 기준으로 7일 계산
+
+    // 문자열 parsing 
+    string m = "";
+
+    for(int i=1; i<11; i++){ 
+        if(i>=6 && i<=7){
+            m += exit_date[i];
+        }
+    }
+    month = stoi(m);
+
+
+    // 가장 최근 이용자의 요금으로 total cost 초기화
+    total_month_cost = stoi(this->memlist_[lineCount-1][4]);
+
+    // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
+    for(int k=lineCount-2; k>=0; k--){
+
+        int diffmonth;
+
+        string diff = this->memlist_[k][3];
+
+        string dm = "";
+
+        for(int i=1; i<11; i++){ 
+            if(i>=6 && i<=7){
+                dm += diff[i];
+            }
+        }
+        diffmonth= stoi(dm);
+
+        cout << diffmonth << endl;
+
+        if(month == diffmonth){
+            string cost_ = this->memlist_[k][4];
+            total_month_cost += stoi(cost_);
+
+        }else break;
+
+    }
+
+    cout << month << "월의 총 금액은 === >" << total_month_cost << endl;
 
 
 }
@@ -120,7 +163,6 @@ void Admin::perMonth(){
 int main(){
 
     Admin admin;
-
     Admin *a = &admin;
 
     int select;
@@ -137,7 +179,7 @@ int main(){
 
         switch(select){
             case 1:
-                a->print();
+                a->printMemList();
                 continue;
             case 2:
                 a->perDay();
