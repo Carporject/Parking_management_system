@@ -6,22 +6,36 @@
 #include <time.h>
 using namespace std;
 
+#define PINFO 5 // 차량번호, 전화번호, 입차일, 출차일, 요금
+
 class Admin{
 private:
     string car_num;
     string phone_num;
+    string cost;
+
+    string enter_date;
+    string exit_date;
+
     int is_mem;
     int total_cost;
+    int total_month_cost;
 
-    time_t enter_date;
-    time_t exit_date;
+protected:
+    int lineCount = 0;
+    vector<string> memlist_[INT16_MAX];
 
 public:
 
-    vector<vector<string>> memlist_;
+    Admin() {
+        loadExit();
+    }
 
     void loadExit();
+    void printMemList();
     void perDay();
     void perMonth();
+
+    int change_month[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
 };
