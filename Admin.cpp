@@ -1,6 +1,7 @@
 #include "include/Admin.h"
 #include <algorithm>
 
+
 void Admin::loadExit(){
 
     FILE *inputFile = NULL;

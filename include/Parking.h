@@ -8,6 +8,8 @@ class Parking{
     int total;
     int empty_area;
     public:
+        Parking();
+        ~Parking();
         bool enterCar(current **HEAD,current  **TAIL);
         bool CheckEmptyArea(current *HEAD, int car_pos);
         bool exitCar(current **HEAD, current  **TAIL);
