@@ -185,23 +185,22 @@ void Admin::analyzeGraph(){
         cost.push_back(total_month_cost);
     }
     
-
-
     int max = *max_element(cost.begin(), cost.end());
     max = max/10000;
 
-    for(max ; max>=0; max--){
+    for(max ; max>0; max--){
         int costj = 0;
         for(int j=0; j<13; j++){
             costj = cost[j] / 10000;
             if(costj >= max){
-                cout << "|  |";
-            }else cout << "    ";
+                cout << " ░░░ ";
+            }else cout << "     ";
         }
         cout <<'\n';
     }
-    cout << "1월 2월 3월 4월 5월 6월 7월 8월 9월 10월 11월 12월" << endl; 
-
+    cout << "=============================================================" << endl; 
+    cout << " 1월  2월  3월  4월  5월  6월  7월  8월  9월  10월  11월  12월" << endl; 
+    cout << "=============================================================" << endl; 
 
 
 
