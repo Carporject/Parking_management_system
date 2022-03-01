@@ -143,8 +143,6 @@ void Admin::perMonth() {
         }
         diffmonth= stoi(dm);
 
-        cout << diffmonth << endl;
-
         if(month == diffmonth){
             string cost_ = this->memlist_[k][4];
             total_month_cost += stoi(cost_);
