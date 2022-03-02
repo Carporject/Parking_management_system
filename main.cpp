@@ -19,9 +19,9 @@ int main(){
 	current *HEAD=NULL;
     current *TAIL=NULL;
 
-	loadPos(&HEAD,&TAIL);
 	int num=0;
 	while(true){
+		loadPos(&HEAD,&TAIL);
 		cout<<"---------------------------------------\n";
 		cout<<"         ****주차관리시스템****         \n";
 		cout<<"---------------------------------------\n";
@@ -42,6 +42,7 @@ int main(){
 		switch(num){
 		 case(1)://입차
 		 	p->enterCar(&HEAD,&TAIL);
+			savePos(HEAD);
 			break;
 		 case(2)://출차
 		 	p->exitCar(&HEAD,&TAIL);
