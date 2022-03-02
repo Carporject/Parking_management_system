@@ -30,14 +30,14 @@ public:
 
     Admin() {
 
-        int secret;
+        string secret;
         
         cout << "관리자 모드 : 비밀 번호를 입력하세요 ";
         cin >> secret;
 
-        if(secret != 0000){
+        if(secret != "0000"){
             cout << "암호가 틀렸습니다 !!!" << endl;
-            exitCall();
+            return;
         }
 
         loadExit();
@@ -86,10 +86,5 @@ public:
     void perDay();
     void perMonth();
     void analyzeMonth();
-
-    void exitCall(){
-        exit(0);
-    }
-
 
 };
