@@ -51,15 +51,28 @@ void Mem::registerMem(){
     cout<<"등록하실 차량 번호를 입력해주세요>>";
     getline(cin,car_num);
 
-    cout<<"전화번호를 입력해주세요>>";
-    getline(cin,phone_num);
+    map<string, string> mem_map={};
+    loadMem(mem_map); // 멤버 받아오기
     
-    ofstream fout;
-    fout.open("member.txt",ios::out |ios::app);
-    fout<<car_num<<','<<phone_num<<endl;
-    fout.close();
-    cout<<"회원등록이 완료되셨습니다. 감사합니다.\n";
-    cout<<endl;
+    while(true){
+        if(mem_map.find(car_num)==mem_map.end()){//끝까지 찾는 자동차 번호가 없다면
+            cout<<"전화번호를 입력해주세요>>";
+            getline(cin,phone_num);
+            
+            ofstream fout;
+            fout.open("member.txt",ios::out |ios::app);
+            fout<<car_num<<','<<phone_num<<endl;
+            fout.close();
+            cout<<"회원등록이 완료되셨습니다. 감사합니다.\n";
+            cout<<endl;
+            break;
+            }
+        else{
+            cout<<"이미 등록된 회원이십니다.\n"<<endl;
+            cout<<endl;
+            return;
+        }
+    }
     return;
 
   

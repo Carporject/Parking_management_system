@@ -11,9 +11,8 @@ using namespace std;
 
 int main(){
 	Parking *p=new Parking();
-
-	Mem m;
-	Car c;
+	Mem *m=new Mem();
+	Car *c=new Car();
 
 	
 	current *HEAD=NULL;
@@ -57,13 +56,13 @@ int main(){
 		 	p->printPos(HEAD);
 			break;
 		 case(4)://전화번호 찾기
-		 	m.findPhoneNum(HEAD);
+		 	m->findPhoneNum(HEAD);
 			break;
 		 case(5)://회원등록
-		 	m.registerMem();
+		 	m->registerMem();
 			break;
 		 case(6)://위치 반환
-		 	c.findPos(HEAD);
+		 	c->findPos(HEAD);
 		 	break;
 		 case(8)://관리자 모드
 		 {
@@ -78,5 +77,7 @@ int main(){
 		 }
 	}
 	delete p;
+	delete m;
+	delete c;
 	return 0;
 }

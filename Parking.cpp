@@ -162,6 +162,7 @@ void Parking::printPos(current *HEAD){
     }
 
     cout<<setw(80)<<setfill('-')<<' '<<endl;      //주차장 정보 출력 ui
+    cout<<setw(5)<<setfill(' ');
         for(int i=0;i<4;i++){
             cout<<setw(5)<<setfill(' ');
             for(int j=0;j<5;j++){
