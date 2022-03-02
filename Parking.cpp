@@ -41,6 +41,7 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
             cout<<"운전자 전화번호를 입력하세요>> ";
             fgets(tmp->car_phone,100,stdin);
             tmp->car_phone[strlen(tmp->car_phone)-1]='\0';
+            cout<<endl;
 
             cout<<"차량번호 "<<tmp->car_num<<" 입차완료 되셨습니다\n";
             cout<<endl;
@@ -48,6 +49,7 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
         }
         else{//이미 주차되어있다면 다시 반복
             cout<<"이미 주차되어 있는 공간입니다.\n";
+            cout<<endl;
         }
     }
     ////2022.03.01해결
@@ -115,7 +117,7 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
         tmp = tmp -> next;
     }
     if(tmp==NULL){
-        cout<<"출차실 차량번호를 찾을 수 없습니다.\n";
+        cout<<"출차하실 차량번호를 찾을 수 없습니다.\n";
         cout<<endl;
         delete p;
         return false;
@@ -168,11 +170,13 @@ void Parking::printPos(current *HEAD){
         }
         cout<<setw(80)<<setfill('-')<<' '<<endl;
     
-    //추후 추가예정
-    // if(p->empty_area==p->total){
-    //     cout<<"만차입니다.\n";
-    // cout<<"차량 "<<(p->total)-(p->empty_area)<<"대 주차가능"<<endl;
-    // }
+    // 추후 추가예정
+    if(p->empty_area==p->total){
+        cout<<"만차입니다.\n";
+    }
+    else{
+        cout<<"차량 "<<(p->total)-(p->empty_area)<<"대 주차가능"<<endl;
+    }
     delete p;
     cout<<endl;
 }
