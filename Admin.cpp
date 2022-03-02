@@ -1,7 +1,6 @@
 #include "include/Admin.h"
 #include <algorithm>
 
-
 void Admin::loadExit(){
 
     FILE *inputFile = NULL;
@@ -12,6 +11,12 @@ void Admin::loadExit(){
 
         while(!feof(inputFile)){
             //한줄 씩 입력 받음
+            if(!fgets(buffer, sizeof(buffer), inputFile)){
+
+                printf(" \n 현재 멤버 수 0명 이므로 관리 불가 입니다 .. \n");
+                break;
+            }
+
             fgets(buffer, sizeof(buffer), inputFile);
 
             char *ptr = strtok(buffer, ",");
@@ -21,7 +26,6 @@ void Admin::loadExit(){
                 memlist_[lineCount].push_back(str);
                 ptr = strtok(NULL, ",");
             }
-
             lineCount++;
         }
         fclose(inputFile);
@@ -29,23 +33,31 @@ void Admin::loadExit(){
     }else {
         printf("입력 파일 존재 X. \n");
     }
-
 }
 
 void Admin::printMemList(){
 
+    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+
+    cout << "전체 회원 수 : " <<  lineCount << endl;
+
     cout << "===================================================================="<<'\n';
     cout << "  차량번호      전화번호         입차일           출차일       요금"<<'\n';
     cout << "===================================================================="<<'\n';
+
     for(int i=0; i<lineCount; i++){
         for(int j=0; j<PINFO; j++){
             cout << this->memlist_[i][j] << " ";
         }cout << "\n";
     }
+    cout << '\n';
+
 
 }
 
 void Admin::perDay(){
+
+    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
     int change_month[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
@@ -109,6 +121,9 @@ void Admin::perDay(){
 }
 
 void Admin::perMonth() {
+
+    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+
     int month;
 
     string exit_date = this->memlist_[lineCount-1][3];  //출차일 기준으로 7일 계산
@@ -158,6 +173,8 @@ void Admin::perMonth() {
 
 void Admin::analyzeMonth(){
 
+    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+
     // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
     int month_list[13] = {1,2,3,4,5,6,7,8,9,10,11,12};
 
@@ -187,12 +204,20 @@ void Admin::analyzeMonth(){
     }
     
     int max = *max_element(cost.begin(), cost.end());
-    max = max/10000;
+
+    int divide;
+    if(max > 100000){
+        divide = 10000;
+        max = max/divide;
+    }else if(max > 10000 && max < 100000){
+        divide = 1000;
+        max = max/divide;
+    }
 
     for(max ; max>0; max--){
         int costj = 0;
         for(int j=0; j<13; j++){
-            costj = cost[j] / 10000;
+            costj = cost[j] / divide;
             if(costj >= max){
                 cout << " ░░░ ";
             }else cout << "     ";
