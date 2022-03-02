@@ -29,7 +29,7 @@ void Admin::loadExit(){
         fclose(inputFile);
 
     }else {
-        printf("입력 파일 존재 X. \n");
+        printf("X 입력 파일 존재 X. \n");
     }
 }
 
