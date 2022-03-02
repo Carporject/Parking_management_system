@@ -31,7 +31,7 @@ int main(){
 	// HEAD=&temp;
 	// TAIL=&temp;
 
-	//loadPos(&HEAD,&TAIL);
+	loadPos(&HEAD,&TAIL);
 	int num=0;
 	while(true){
 		cout<<"---------------------------------------\n";

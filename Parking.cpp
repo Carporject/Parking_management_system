@@ -71,7 +71,7 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
 //출차 함수 기능
 bool Parking::exitCar(current **HEAD,current  **TAIL){
     current *tmp,*before;
-    char exit_carnum[40]="";
+    char exit_carnum[100]="";
     //1.Car:printPos->Parkinglot->p_position배열을 읽고 있으면->Car:car_pos 없으면->”없다고 출력”
     cout<<"출차하실 자동차 번호를 입력하세요: ";
     fgets(exit_carnum,100,stdin);
@@ -85,28 +85,29 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
     int cost=0;
     char exitd[100]="";
 
-    cout<<"출차"<<exit_carnum;
-    // strcpy(exitd,exit_date.c_str());//exit_date string to char[]
+    // cout<<"출차"<<exit_carnum;
+    // // strcpy(exitd,exit_date.c_str());//exit_date string to char[]
 
     
     while(tmp){
         if(strcmp(tmp-> car_num,exit_carnum)==0){
             cout<<"번호마자?"<<tmp->car_num;
             p->calc_time(&exit_date);  // 현재 시간을 받아오고
-            p->calc_cost(tmp, &cost); //정산을 하고
             strcpy(exitd,exit_date.c_str());
-            saveExit(tmp,cost,exitd);
-            if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
-                (*HEAD)=(*HEAD)->next;
-            }
-            else if(tmp == (*TAIL)){
-                (*TAIL) = before;
-                (*TAIL)->next = NULL;
-            }
-            else {
-                before->next = tmp ->next;
-            } 
-            free(tmp); //해당 tmp해제(삭제)
+            cout<<"날짜"<<exitd;
+            p->calc_cost(tmp, &cost); //정산을 하고
+        //     saveExit(tmp,cost,exitd);
+        //     if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
+        //         (*HEAD)=(*HEAD)->next;
+        //     }
+        //     else if(tmp == (*TAIL)){
+        //         (*TAIL) = before;
+        //         (*TAIL)->next = NULL;
+        //     }
+        //     else {
+        //         before->next = tmp ->next;
+        //     } 
+        //     free(tmp); //해당 tmp해제(삭제)
             break;
         }
         before = tmp;
@@ -118,6 +119,7 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
         delete p;
         return false;
     }
+    
     delete p;
     return true;
         
