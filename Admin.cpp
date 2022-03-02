@@ -156,7 +156,7 @@ void Admin::perMonth() {
 
 }
 
-void Admin::analyzeGraph(){
+void Admin::analyzeMonth(){
 
     // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
     int month_list[13] = {1,2,3,4,5,6,7,8,9,10,11,12};
@@ -201,52 +201,7 @@ void Admin::analyzeGraph(){
     }
     cout << "=============================================================" << endl; 
     cout << " 1월  2월  3월  4월  5월  6월  7월  8월  9월  10월  11월  12월" << endl; 
-    cout << "=============================================================" << endl; 
-
-
+    cout << "===================월 별 요금 추이(만원단위)==================" << endl; 
 
 }
 
-
-
-
-int main(){
-
-    Admin admin;
-    Admin *a = &admin;
-
-    int select;
-
-    cout << "주차 관리 시스템 관리자 모드" << '\n';
-
-    while(select == 0){
-        cout << "1. 전체 회원 리스트 " << '\n';
-        cout << "2. 일별 정산 요금 조회" << '\n';
-        cout << "3. 월별 정산 요금 조회" << '\n';
-        cout << "4. 정산 내역 출력" << '\n';
-
-
-        cin >> select;
-
-        switch(select){
-            case 1:
-                a->printMemList();
-                continue;
-            case 2:
-                a->perDay();
-                continue;
-            case 3:
-                a->perMonth();
-                continue;
-            case 4:
-                a->analyzeGraph();
-                continue;
-            case 0:
-                break;
-            default:
-                cout << "잘못된 입력 입니다. " << select << endl;
-        }
-    }
-
-    return 0;
-}

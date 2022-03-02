@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <string.h>
-#include <time.h>
+
 using namespace std;
 
 #define PINFO 5 // 차량번호, 전화번호, 입차일, 출차일, 요금
@@ -30,13 +30,54 @@ public:
 
     Admin() {
         loadExit();
+
+        int select;
+
+        while(true){
+
+            cout << "-----------------------------------------------\n";
+            cout << "     ****주차 관리 시스템 관리자 모드****     " << '\n';
+            cout << "-----------------------------------------------\n";
+            cout << "1. 전체 회원 리스트    2. 일별 정산 요금 조회" << '\n';
+            cout << "3. 월별 정산 요금 조회 4. 월별 소득 추이" << '\n';
+            cout << "5. 종료 (0 클릭)" << '\n';
+            cout << "-----------------------------------------------\n";
+
+
+            cout << "선택하실 메뉴 번호를 입력하세요 >>> ";
+            cin >> select;
+
+            switch(select){
+                case 1:
+                    printMemList();
+                    continue;
+                case 2:
+                    perDay();
+                    continue;
+                case 3:
+                    perMonth();
+                    continue;
+                case 4:
+                    analyzeMonth();
+                    continue;
+                case 0:
+                    exitCall();
+                default:
+                    cout << "잘못된 입력 입니다. " << select << endl;
+            }
+        }
     }
+    ~Admin(){}
 
     void loadExit();
     void printMemList();
     void perDay();
     void perMonth();
-    void analyzeGraph();
+    void analyzeMonth();
+
+    void exitCall(){
+        exit(0);
+    }
 
 
 };
