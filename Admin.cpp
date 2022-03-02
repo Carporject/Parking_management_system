@@ -19,7 +19,7 @@ void Admin::loadExit(){
 
             fgets(buffer, sizeof(buffer), inputFile);
             
-            cout <<(idx++)<< buffer <<endl;
+            // cout <<(idx++)<< buffer <<endl;
             char *ptr = strtok(buffer, ",");
 
             while(ptr){
