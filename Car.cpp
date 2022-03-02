@@ -20,8 +20,8 @@ Car::Car(){
 Car::~Car(){}
 
 int calc_hour(string exit, string enter){
-    cout<<"입차"<<enter<<endl;
-    cout<<"출차"<<exit<<endl;
+    cout<<"입차하신 시간 :"<<enter<<endl;
+    cout<<"출차하실 시간 :"<<exit<<endl;
     exit += ":00";
     enter += ":00";
     struct tm intime;
@@ -35,15 +35,16 @@ int calc_hour(string exit, string enter){
     //" "기준으로 토큰으로 끊어서 각각 year, month, day, hour, min으로 넣기
     //같은 날 출차이면 그냥 빼기해서 계산
     //다른 날 출차이면 월이 다른 경우, 년이 다른 경우 따로 계산
-    printf("입차시간 : %d %d %d %d : %d", intime.tm_year, intime.tm_mon, intime.tm_mday, intime.tm_hour, intime.tm_min);
-    printf("출차시간 : %d %d %d %d : %d", outtime.tm_year, outtime.tm_mon, outtime.tm_mday, outtime.tm_hour, outtime.tm_min);
+    // printf("입차시간 : %d %d %d %d : %d", intime.tm_year, intime.tm_mon, intime.tm_mday, intime.tm_hour, intime.tm_min);
+    // printf("출차시간 : %d %d %d %d : %d", outtime.tm_year, outtime.tm_mon, outtime.tm_mday, outtime.tm_hour, outtime.tm_min);
     double diff_time = difftime(mktime(&outtime), mktime(&intime));
     int t_hour, t_min;
     t_hour = diff_time / (60*60);
     diff_time = diff_time - (t_hour*60*60);
     t_min = diff_time / (60);
     diff_time = diff_time - (t_min*60);
-    printf ("입차일과 출차일은 %d시 %d분 차이가 납니다.\n", t_hour, t_min);
+    printf ("입차일과 출차일은 %d시간 %d분 차이가 납니다.\n", t_hour, t_min);
+    printf("\n");
     return t_hour;
 
 }
@@ -52,14 +53,13 @@ void Car::calc_cost(current *tmp, int *cost){
     Car *p=new Car;
     Mem m;
     calc_time(&(p->exit_date));
-    cout<<"잘들어옴"<<p->exit_date;
     int time = calc_hour(p->exit_date, tmp->enter_date);
     if(m.isMem(tmp->car_num)){
+        cout<<tmp->car_num<<"님은 회원이십니다\n";
         p->cost = time*1000*0.8;
     }
     
     p->cost = time*1000;
-    cout<<"eeeeeeeee"<<p->cost;
     *cost=(p->cost);
     delete p;
     return;

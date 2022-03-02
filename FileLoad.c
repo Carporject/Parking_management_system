@@ -7,10 +7,10 @@
 
  void saveExit(current *tmp, int cost, char* exit_date ){
 
-     printf("saveExit 시작\n");
+    //  printf("saveExit 시작\n");
 
      FILE *fp = fopen("total.txt","a");
-     printf("파일 열기 성공\n");
+    //  printf("파일 열기 성공\n");
 
      char string[20];
      int size = floor(log10(cost)+1);
@@ -28,21 +28,20 @@
      fputs(", ",fp);
      fprintf(fp, "%d \n",cost);
 
-     printf("파일 저장 끝\n");
+    //  printf("파일 저장 끝\n");
 
      fclose(fp);
  }
 
 void savePos(current *HEAD){
 
-     printf("savePos 시작\n");
+    //  printf("savePos 시작\n");
 
-     FILE *fp = fopen("parking.txt","a");
-     printf("파일 열기 성공\n");
+     FILE *fp = fopen("parking.txt","w");
+    //  printf("파일 열기 성공\n");
 
      current *tmp;
      tmp = HEAD;
-    //  printf("%s",tmp->car_num);
      while(tmp){
         fputs(tmp->car_num,fp);
         fputs(",",fp);
@@ -50,12 +49,12 @@ void savePos(current *HEAD){
         fputs(",",fp);
         fputs(tmp->enter_date,fp);
         fputs(",",fp);
-        fprintf(fp, "%d \n",tmp->car_pos);
+        fprintf(fp, "%d\n",tmp->car_pos);
 
         tmp = tmp->next;
      }
 
-     printf("파일 저장 끝\n");
+    //  printf("파일 저장 끝\n");
 
      fclose(fp);
 }

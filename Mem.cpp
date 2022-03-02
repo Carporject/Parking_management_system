@@ -3,7 +3,7 @@
 #include<map>
 #include<cstring>
 #include<fstream>
-
+using namespace std;
 bool Mem::findPhoneNum(current *HEAD){
     current *tmp;
     char fcar_num[40]="";
@@ -17,9 +17,11 @@ bool Mem::findPhoneNum(current *HEAD){
     while(tmp){
         if(strcmp(tmp->car_num ,fcar_num)==0){
             cout<< "전화번호(개인사용금지)"<<endl;
-            cout<<tmp->car_phone;
+            cout<<tmp->car_phone<<endl;
+            cout<<endl;
             return true;
         }
+        tmp=tmp->next;
     }
     cout<< "찾으시는 번호의 차량이 없습니다"<<endl;
     cout<<endl;
@@ -28,18 +30,18 @@ bool Mem::findPhoneNum(current *HEAD){
 
 }
 bool Mem::isMem(string car_num){
-    map<string, string> mem_map;
-    // loadMem(&mem_map); // 멤버 받아오기
+    map<string, string> mem_map={};
+    loadMem(mem_map); // 멤버 받아오기
     
-    // while(true){
-    //     if(mem_map.find(car_num)==mem_map.end()){//끝까지 찾는 자동차 번호가 없다면
-    //         return false;
-    //         }
-    //     else{
-    //         cout<<mem_map[car_num]<<endl;
-    //         return true;
-    //     }
-    // }    
+    while(true){
+        if(mem_map.find(car_num)==mem_map.end()){//끝까지 찾는 자동차 번호가 없다면
+            return false;
+            }
+        else{
+            cout<<mem_map[car_num]<<endl;
+            return true;
+        }
+    }    
     return true;
 }
 void Mem::registerMem(){

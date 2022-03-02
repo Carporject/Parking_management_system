@@ -76,6 +76,7 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
     cout<<"출차하실 자동차 번호를 입력하세요: ";
     fgets(exit_carnum,100,stdin);
     exit_carnum[strlen(exit_carnum)-1]='\0';
+    cout<<endl;
 
 
     Car *p=new Car; //Car클래스 생성자 
@@ -93,11 +94,10 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
         if(strcmp(tmp-> car_num,exit_carnum)==0){
             p->calc_time(&exit_date);  // 현재 시간을 받아오고
             strcpy(exitd,exit_date.c_str());
-            cout<<"날짜"<<exitd;
             p->calc_cost(tmp, &cost); //정산을 하고
-            cout<<"총 가격"<<cost<<endl;
+            cout<<"총 가격: "<<cost<<"원 입니다"<<endl;
             saveExit(tmp,cost,exitd);
-            cout<<tmp->car_num<<"출차 처리되셨습니다.\n";
+            cout<<tmp->car_num<<" 출차 처리되셨습니다.안녕히가십시오\n";
             if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
                 (*HEAD)=(*HEAD)->next;
             }
@@ -120,7 +120,7 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
         delete p;
         return false;
     }
-    
+    cout<<endl;
     delete p;
     return true;
         
@@ -148,9 +148,7 @@ void Parking::printPos(current *HEAD){
     tmp = HEAD;
 
     while(tmp){
-        cout<<"차위치정보"<<(tmp->car_pos)+1<<endl;
         p_arr[tmp->car_pos] = 1; //tmp->car_pos 주차된 위치 정보가 존재하면 배열값 1로 전환 ==> 0:빈공간 1:주차된 공간
-        cout<<"현재"<<tmp->car_num;
         tmp = tmp->next;
         p->empty_area++;
     }
