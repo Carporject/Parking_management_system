@@ -17,6 +17,19 @@ int main(){
 	current *HEAD=NULL;
     current *TAIL=NULL;
 
+
+	current temp;
+
+	// strcpy(temp.car_num,"1234");
+	// strcpy(temp.car_phone,"12345");
+	// strcpy(temp.enter_date,"2020 02 02 12:30");
+	// temp.next=NULL;
+	// temp.car_pos=1;
+
+	// HEAD=&temp;
+	// TAIL=&temp;
+
+	loadPos(&HEAD,&TAIL);
 	int num=0;
 	while(true){
 		cout<<"주차관리시스템\n";

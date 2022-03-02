@@ -22,11 +22,11 @@ int calc_hour(string exit, string enter){
 
     struct tm intime;
     istringstream in(enter);
-    in >> get_time(&intime, "%Y %m %d %H %M");
+    in >> get_time(&intime, "%Y %m %d %H:%M");
     
     struct tm outtime;
     istringstream out(exit);
-    out >> get_time(&outtime, "%Y %m %d %H %M");
+    out >> get_time(&outtime, "%Y %m %d %H:%M");
     //" "기준으로 토큰으로 끊어서 각각 year, month, day, hour, min으로 넣기
     //같은 날 출차이면 그냥 빼기해서 계산
     //다른 날 출차이면 월이 다른 경우, 년이 다른 경우 따로 계산
@@ -71,7 +71,7 @@ void Car::calc_time(string *date){
     string hour = to_string(pLocal->tm_hour);
     string min = to_string(pLocal->tm_min);
 
-    *date = year+" "+mon+" "+day+" "+hour+" "+min;
+    *date = year+" "+mon+" "+day+" "+hour+":"+min;
     return;
 }
 
@@ -83,7 +83,8 @@ void Car::findPos(current *HEAD){
 
     while(tmp){
         if(tmp->car_num == car_num){
-            cout << tmp->car_pos;
+            cout << (tmp->car_pos)+1 <<"번에 주차되어 있습니다.\n";
+            cout<<endl;
             return;
         }
 

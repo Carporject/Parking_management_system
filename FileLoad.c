@@ -62,42 +62,35 @@
 
 void loadPos(current **HEAD, current **TAIL){
     printf("loadPos\n");
-
     FILE *fp = NULL;
     fp = fopen("parking.txt", "r");
     if(fp!=NULL){
-
         char string[100];
-
         while(1)
         {
             current *tmp;
             tmp = (current*)malloc(sizeof(current));
-            
             fgets(string, sizeof(string), fp);
             if(feof(fp))
                 break;
-
+            if(string==NULL){
+                break;
+            }
             string[strlen(string)-1] = '\0';
             printf("%s\n",string);
-         
-            
             char *ptr = strtok(string, ",");
             strcpy(tmp->car_num, ptr);
-
             ptr = strtok(NULL, ",");
             strcpy(tmp->car_phone, ptr);
-
             ptr = strtok(NULL, ",");
             strcpy(tmp->enter_date, ptr);
-            
             ptr = strtok(NULL,",");
-            for(int i = 0; i<strlen(ptr); i++){
+            for(int i = 0; i<strlen(ptr)-1; i++){
+                // printf("%d ptr:%d num:%d", i, ptr[i], ptr[i]-'0');
                 tmp->car_pos = tmp->car_pos*10 + (ptr[i]-'0');
+                // printf("%d\n",tmp->car_pos);
             }
-
             printf("%d\n",tmp->car_pos);
-
             if(*HEAD == NULL){
                 *HEAD = *TAIL = tmp;
             }
@@ -105,14 +98,10 @@ void loadPos(current **HEAD, current **TAIL){
                 (*TAIL)->next = tmp;
                 *TAIL=tmp;
             }
-
-            // printf("노드 완료");
-            
         }
-        
-
     }else{
         printf("파일이 존재하지 않습니다.\n");
     }
     fclose(fp);
+    return;
 }

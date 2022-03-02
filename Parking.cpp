@@ -33,6 +33,7 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
             continue;
         }
         if(CheckEmptyArea(*HEAD,tmp->car_pos)){ //이미 주차되어 있는지 확인
+            tmp->car_pos-=1;
             cout<<"자동차 번호를 입력하세요>> ";
             fgets(tmp->car_num,100,stdin);
             tmp->car_num[strlen(tmp->car_num)-1]='\0';
@@ -55,12 +56,11 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
     Car *ttime=new Car;
     string enterd=""; //tmp->enter_date:char[] -> string 변환
     ttime->calc_time(&enterd); //현재시간 불러오기
-    cout<<"시간"<<enterd;
-    // strcpy(tmp->enter_date,enterd.c_str());
-    // tmp->next = NULL;                  //segementation 오류 지점
-    // (*TAIL)->next = tmp;
-    // (*TAIL)=tmp;
-
+    cout<<enterd<<endl;
+    strcpy(tmp->enter_date,enterd.c_str());
+    tmp->next = NULL;                  //segementation 오류 지점
+    (*TAIL)->next = tmp;
+    (*TAIL)=tmp;
     delete ttime;//ttime할당 해제
     ttime=NULL;
     return true;
@@ -84,17 +84,17 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
     string exit_date="";
     int cost=0;
     char exitd[100]="";
+
+    cout<<"출차"<<exit_carnum;
     // strcpy(exitd,exit_date.c_str());//exit_date string to char[]
-
-
-    //Car함수완료 후 다시 수행
-    cout<<tmp->car_num;
 
     
     while(tmp){
-        if(strcat(tmp-> car_num,exit_carnum)==0){
-            // p->calc_time(&exit_date);  // 현재 시간을 받아오고
-            // p->calc_cost(tmp, &cost); //정산을 하고
+        if(strcmp(tmp-> car_num,exit_carnum)==0){
+            cout<<"번호마자?"<<tmp->car_num;
+            p->calc_time(&exit_date);  // 현재 시간을 받아오고
+            p->calc_cost(tmp, &cost); //정산을 하고
+            strcpy(exitd,exit_date.c_str());
             saveExit(tmp,cost,exitd);
             if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
                 (*HEAD)=(*HEAD)->next;
@@ -111,14 +111,15 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
         }
         before = tmp;
         tmp = tmp -> next;
-        return true;
     }
     if(tmp==NULL){
         cout<<"출차실 차량번호를 찾을 수 없습니다.\n";
         cout<<endl;
+        delete p;
+        return false;
     }
     delete p;
-    return false;
+    return true;
         
     
 }
@@ -128,7 +129,7 @@ bool Parking::CheckEmptyArea(current *HEAD, int car_pos){
     current *tmp;
     tmp=HEAD;
     while(tmp){
-        if(tmp->car_pos == car_pos){
+        if(tmp->car_pos == (car_pos-1)){
             return false;
         }
         tmp = tmp -> next;
@@ -144,8 +145,9 @@ void Parking::printPos(current *HEAD){
     tmp = HEAD;
 
     while(tmp){
-        cout<<"차위치정보"<<tmp->car_pos<<endl;
+        cout<<"차위치정보"<<(tmp->car_pos)+1<<endl;
         p_arr[tmp->car_pos] = 1; //tmp->car_pos 주차된 위치 정보가 존재하면 배열값 1로 전환 ==> 0:빈공간 1:주차된 공간
+        cout<<"현재"<<tmp->car_num;
         tmp = tmp->next;
         p->empty_area++;
     }
