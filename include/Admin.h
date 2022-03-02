@@ -26,6 +26,8 @@ protected:
     vector<int> cost;
     vector<string> memlist_[INT16_MAX];
 
+    friend bool compare(pair<int, int>a, pair<int, int>b);
+
 public:
 
     Admin() {
@@ -47,11 +49,12 @@ public:
         while(true){
 
             cout << "-----------------------------------------------\n";
+            cout << "-----------------------------------------------\n";
             cout << "     ****주차 관리 시스템 관리자 모드****     " << '\n';
             cout << "-----------------------------------------------\n";
             cout << "1. 전체 회원 리스트    2. 일별 정산 요금 조회" << '\n';
             cout << "3. 월별 정산 요금 조회 4. 월별 소득 추이" << '\n';
-            cout << "5. 종료 (0 클릭)" << '\n';
+            cout << "5. 많이 사용한 회원    0. 종료 (0 클릭)" << '\n';
             cout << "-----------------------------------------------\n";
 
 
@@ -71,6 +74,9 @@ public:
                 case 4:
                     analyzeMonth();
                     break;
+                case 5:
+                    mostUser();
+                    break;
                 case 0:
                     exitCall();
                     break;
@@ -79,13 +85,13 @@ public:
             }
         }
     }
-    ~Admin(){}
 
     void loadExit();
     void printMemList();
     void perDay();
     void perMonth();
     void analyzeMonth();
+    void mostUser();
 
     void exitCall(){
         exit(0);

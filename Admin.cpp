@@ -230,3 +230,43 @@ void Admin::analyzeMonth(){
 
 }
 
+void Admin::mostUser(){
+    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+
+    vector<pair<int,string>> user_cost_list;
+    int user_cost;
+    int idx = 0;
+
+    while(lineCount+2 != idx){
+        cout << idx << lineCount << endl;
+        user_cost += stoi(this->memlist_[idx][4]);
+
+        cout << "가격 " << user_cost << endl;
+
+        if (this->memlist_[idx][0] != this->memlist_[idx+1][0]){
+            user_cost_list.push_back(make_pair(user_cost, this->memlist_[idx][0]));
+            user_cost = 0;            
+        }
+        idx++;
+
+    }
+
+    for(int i=0; i<user_cost_list.size(); i++){
+        cout << user_cost_list[i].first <<" "<< user_cost_list[i].second << endl;
+    }
+
+    int max = -1;
+    string max_s = "";
+    for(int i=0; i<user_cost_list.size(); i++){
+        if(user_cost_list[i].first > max){
+            max = user_cost_list[i].first;
+            max_s = user_cost_list[i].second; 
+        }
+    }
+
+    cout << "전체 회원 중 VIP 고객의 차량번호      ==> " << max_s << '\n'; 
+    cout << "전체 회원 중 VIP 고객의 총 지출 요금  ==> " << max << '\n'; 
+
+
+
+}
