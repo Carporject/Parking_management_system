@@ -21,7 +21,7 @@ private:
     int total_month_cost;
 
 protected:
-    int lineCount = 0;
+    int lineCount;
     int month, day, year;
     vector<int> cost;
     vector<string> memlist_[INT16_MAX];
@@ -72,13 +72,13 @@ public:
                     analyzeMonth();
                     break;
                 case 0:
-                    exitCall();
-                    break;
+                    return;
                 default:
                     cout << "잘못된 입력 입니다. " << select << endl;
             }
         }
     }
+
     ~Admin(){}
 
     void loadExit();
