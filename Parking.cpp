@@ -64,9 +64,13 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
     ttime->calc_time(&enterd); //현재시간 불러오기
     cout<<enterd<<endl;
     strcpy(tmp->enter_date,enterd.c_str());
-    tmp->next = NULL;                  //segementation 오류 지점
-    (*TAIL)->next = tmp;
-    (*TAIL)=tmp;
+    tmp->next = NULL;
+    if(*HEAD == NULL){
+        *HEAD = *TAIL = tmp;
+    }else{
+        (*TAIL)->next = tmp;
+        (*TAIL)=tmp;
+    }                  //segementation 오류 지점
     delete ttime;//ttime할당 해제
     ttime=NULL;
     return true;
@@ -151,6 +155,7 @@ void Parking::printPos(current *HEAD){
     current *tmp;
     Parking *p=new Parking;
     tmp = HEAD;
+    cout << "test"<<tmp->car_num<<"\n";
     while(tmp){
         p_arr[tmp->car_pos] = 1; //tmp->car_pos 주차된 위치 정보가 존재하면 배열값 1로 전환 ==> 0:빈공간 1:주차된 공간
         tmp = tmp->next;

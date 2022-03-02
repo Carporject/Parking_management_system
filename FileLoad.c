@@ -60,11 +60,12 @@ void savePos(current *HEAD){
 }
 
 void loadPos(current **HEAD, current **TAIL){
-    // printf("loadPos\n");
+    printf("loadPos\n");
     FILE *fp = NULL;
     fp = fopen("parking.txt", "r");
     if(fp!=NULL){
         char string[100];
+
         while(1)
         {
             current *tmp;
@@ -75,6 +76,8 @@ void loadPos(current **HEAD, current **TAIL){
             if(string==NULL){
                 break;
             }
+
+            printf("%s",string);
             string[strlen(string)-1] = '\0';
             char *ptr = strtok(string, ",");
             strcpy(tmp->car_num, ptr);
@@ -100,7 +103,6 @@ void loadPos(current **HEAD, current **TAIL){
     }else{
         printf("파일이 존재하지 않습니다.\n");
         fp = fopen("parking.txt", "w");
-        fputs("",fp);
 
     }
     fclose(fp);
