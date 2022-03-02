@@ -60,7 +60,7 @@ void savePos(current *HEAD){
 }
 
 void loadPos(current **HEAD, current **TAIL){
-    printf("loadPos\n");
+    // printf("loadPos\n");
     FILE *fp = NULL;
     fp = fopen("parking.txt", "r");
     if(fp!=NULL){
@@ -76,7 +76,6 @@ void loadPos(current **HEAD, current **TAIL){
                 break;
             }
             string[strlen(string)-1] = '\0';
-            printf("%s\n",string);
             char *ptr = strtok(string, ",");
             strcpy(tmp->car_num, ptr);
             ptr = strtok(NULL, ",");
@@ -89,7 +88,7 @@ void loadPos(current **HEAD, current **TAIL){
                 tmp->car_pos = tmp->car_pos*10 + (ptr[i]-'0');
                 // printf("%d\n",tmp->car_pos);
             }
-            printf("%d\n",tmp->car_pos);
+            // printf("%d\n",tmp->car_pos);
             if(*HEAD == NULL){
                 *HEAD = *TAIL = tmp;
             }
