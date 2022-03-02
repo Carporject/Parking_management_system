@@ -99,6 +99,9 @@ void loadPos(current **HEAD, current **TAIL){
         }
     }else{
         printf("파일이 존재하지 않습니다.\n");
+        fp = fopen("parking.txt", "w");
+        fputs("",fp);
+
     }
     fclose(fp);
     return;

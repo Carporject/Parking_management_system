@@ -41,8 +41,8 @@ int main(){
 		cin.ignore(256,'\n'); //개행 무시 
 		switch(num){
 		 case(1)://입차
-		 	p->enterCar(&HEAD,&TAIL);
-			savePos(HEAD);
+		 	if(p->enterCar(&HEAD,&TAIL))
+				savePos(HEAD);
 			break;
 		 case(2)://출차
 		 	p->exitCar(&HEAD,&TAIL);
