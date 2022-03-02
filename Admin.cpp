@@ -5,21 +5,18 @@ void Admin::loadExit(){
 
     FILE *inputFile = NULL;
     inputFile = fopen("./total.txt", "r");
+    char buffer[256];
 
+    lineCount = 0;
     if(inputFile != NULL){
+
         char buffer[256];
-        int idx = 0;
         while(!feof(inputFile)){
             //한줄 씩 입력 받음
-            // if(!fgets(buffer, sizeof(buffer), inputFile)){
-
-            //     printf(" \n 현재 멤버 수 0명 이므로 관리 불가 입니다 .. \n");
-            //     break;
-            // }
-
-            fgets(buffer, sizeof(buffer), inputFile);
-            
-            // cout <<(idx++)<< buffer <<endl;
+            if(!fgets(buffer, sizeof(buffer), inputFile)){
+                printf(" \n 현재 멤버 수 0명 이므로 관리 불가 입니다 .. \n");
+                break;
+            }
             char *ptr = strtok(buffer, ",");
 
             while(ptr){
@@ -122,42 +119,39 @@ void Admin::perDay(){
 }
 
 void Admin::perMonth() {
+    int search_month, search_year;
 
     if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
-    int month;
-
-    string exit_date = this->memlist_[lineCount-1][3];  //출차일 기준으로 7일 계산
-
-    // 문자열 parsing 
-    string m = "";
-
-    for(int i=1; i<11; i++){ 
-        if(i>=6 && i<=7){
-            m += exit_date[i];
-        }
-    }
-    month = stoi(m);
+    cout << "조회 하고 싶은 년도와 달을 입력하세요 ==> " << endl;
+    cout << "년도  : ";
+    cin >> search_year;
+    cout << "월    : ";
+    cin >> search_month;
 
 
-    // 가장 최근 이용자의 요금으로 total cost 초기화
-    total_month_cost = stoi(this->memlist_[lineCount-1][4]);
+    total_month_cost = 0;
 
-    // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
-    for(int k=lineCount-2; k>=0; k--){
+    for(int k=lineCount-1; k>=0; k--){
 
-        int diffmonth;
+        int diffmonth, diffyear;
 
         string diff = this->memlist_[k][3];
 
         string dm = "";
+        string dy = "";
 
-        for(int i=1; i<11; i++){ 
-            if(i>=6 && i<=7){
+        for(int i=0; i<11; i++){ 
+            if(i>=5 && i<7){
                 dm += diff[i];
+            }else if(i >=7 && i<10){
+                dy += diff[i];
             }
         }
         diffmonth= stoi(dm);
+        diffyear= stoi(dy);
+
+        cout << "월 : " << diffmonth << "년 : " << diffyear << endl;
 
         if(month == diffmonth){
             string cost_ = this->memlist_[k][4];
