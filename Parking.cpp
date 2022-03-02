@@ -62,11 +62,15 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
     Car *ttime=new Car;
     string enterd=""; //tmp->enter_date:char[] -> string 변환
     ttime->calc_time(&enterd); //현재시간 불러오기
-    cout<<enterd<<endl;
     strcpy(tmp->enter_date,enterd.c_str());
     tmp->next = NULL;                  //segementation 오류 지점
-    (*TAIL)->next = tmp;
-    (*TAIL)=tmp;
+    if (*HEAD==NULL){
+        (*HEAD)=(*TAIL)=tmp;
+    }
+    else{
+        (*TAIL)->next = tmp;
+        (*TAIL)=tmp;
+    }
     delete ttime;//ttime할당 해제
     ttime=NULL;
     return true;

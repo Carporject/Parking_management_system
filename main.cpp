@@ -20,8 +20,8 @@ int main(){
     current *TAIL=NULL;
 
 	int num=0;
+	loadPos(&HEAD,&TAIL);
 	while(true){
-		loadPos(&HEAD,&TAIL);
 		cout<<"---------------------------------------\n";
 		cout<<"         ****주차관리시스템****         \n";
 		cout<<"---------------------------------------\n";
