@@ -29,6 +29,17 @@ protected:
 public:
 
     Admin() {
+
+        int secret;
+        
+        cout << "관리자 모드 : 비밀 번호를 입력하세요 ";
+        cin >> secret;
+
+        if(secret != 0000){
+            cout << "암호가 틀렸습니다 !!!" << endl;
+            exitCall();
+        }
+
         loadExit();
 
         int select;
@@ -50,18 +61,19 @@ public:
             switch(select){
                 case 1:
                     printMemList();
-                    continue;
+                    break;
                 case 2:
                     perDay();
-                    continue;
+                    break;
                 case 3:
                     perMonth();
-                    continue;
+                    break;
                 case 4:
                     analyzeMonth();
-                    continue;
+                    break;
                 case 0:
                     exitCall();
+                    break;
                 default:
                     cout << "잘못된 입력 입니다. " << select << endl;
             }
