@@ -10,7 +10,7 @@
     //  printf("saveExit 시작\n");
 
      FILE *fp = fopen("total.txt","a");
-    //  printf("파일 열기 성공\n");
+     printf("파일 열기 성공\n");
 
      char string[20];
      int size = floor(log10(cost)+1);
@@ -99,7 +99,7 @@ void loadPos(current **HEAD, current **TAIL){
             }
         }
     }else{
-        printf("파일이 존재하지 않습니다.\n");
+        // printf("파일이 존재하지 않습니다.\n");
         fp = fopen("parking.txt", "w+");
 
     }
