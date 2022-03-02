@@ -19,19 +19,7 @@ int main(){
 	current *HEAD=NULL;
     current *TAIL=NULL;
 
-
-	current temp;
-
-	// strcpy(temp.car_num,"1234");
-	// strcpy(temp.car_phone,"12345");
-	// strcpy(temp.enter_date,"2020 02 02 12:30");
-	// temp.next=NULL;
-	// temp.car_pos=1;
-
-	// HEAD=&temp;
-	// TAIL=&temp;
-
-	//loadPos(&HEAD,&TAIL);
+	loadPos(&HEAD,&TAIL);
 	int num=0;
 	while(true){
 		cout<<"---------------------------------------\n";
@@ -57,6 +45,7 @@ int main(){
 			break;
 		 case(2)://출차
 		 	p->exitCar(&HEAD,&TAIL);
+			savePos(HEAD);
 			break;
 		 case(3)://주차장 전체 현황 보기
 		 	p->printPos(HEAD);
