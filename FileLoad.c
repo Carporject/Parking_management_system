@@ -84,7 +84,7 @@ void loadPos(current **HEAD, current **TAIL){
             ptr = strtok(NULL, ",");
             strcpy(tmp->enter_date, ptr);
             ptr = strtok(NULL,",");
-            for(int i = 0; i<strlen(ptr)-1; i++){
+            for(int i = 0; i<strlen(ptr); i++){
                 // printf("%d ptr:%d num:%d", i, ptr[i], ptr[i]-'0');
                 tmp->car_pos = tmp->car_pos*10 + (ptr[i]-'0');
                 // printf("%d\n",tmp->car_pos);

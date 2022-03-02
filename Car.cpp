@@ -58,8 +58,10 @@ void Car::calc_cost(current *tmp, int *cost){
         cout<<tmp->car_num<<"님은 회원이십니다\n";
         p->cost = time*1000*0.8;
     }
-    
-    p->cost = time*1000;
+    else{
+
+        p->cost = time*1000;
+    }
     *cost=(p->cost);
     delete p;
     return;
