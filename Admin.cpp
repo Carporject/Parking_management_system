@@ -67,10 +67,10 @@ void Admin::perDay(){
     string m = "";
     string d = "";
 
-    for(int i=1; i<11; i++){ 
-        if(i>=6 && i<=7){
+    for(int i=0; i<10; i++){ 
+        if(i>=5 && i<=6){
             m += exit_date[i];
-        }else if(i>=9 && i<=10){
+        }else if(i>=8 && i<=9){
             d += exit_date[i];
         }
     }
@@ -124,45 +124,60 @@ void Admin::perMonth() {
 
     if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
-    int month;
-
-    string exit_date = this->memlist_[lineCount-1][3];  //출차일 기준으로 7일 계산
+    string exit_date = this->memlist_[lineCount-1][3];  // 가장 최근 출차일
 
     // 문자열 parsing 
     string m = "";
+    string y = "";
 
-    for(int i=1; i<11; i++){ 
-        if(i>=6 && i<=7){
+    for(int i=0; i<11; i++){ 
+        if(i>=0 && i<=3){
+            y += exit_date[i];
+        }else if(i>=5 && i<=6){
             m += exit_date[i];
         }
     }
     month = stoi(m);
+    year = stoi(y);   //이번년도
 
+    cout << "이번년도 " << year << endl;
 
     // 가장 최근 이용자의 요금으로 total cost 초기화
     total_month_cost = stoi(this->memlist_[lineCount-1][4]);
 
+    cout << "가장 최근 이용자 요금 " << total_month_cost << endl;
+
     // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
     for(int k=lineCount-2; k>=0; k--){
-
-        int diffmonth;
+        int diffmonth = 0;
+        int diffyear = 0;
 
         string diff = this->memlist_[k][3];
 
         string dm = "";
+        string dy = "";
 
-        for(int i=1; i<11; i++){ 
-            if(i>=6 && i<=7){
+        for(int i=0; i<11; i++){ 
+            if(i>=0 && i<=3){
+                dy += diff[i];
+            }else if(i>=5 && i<=6){
                 dm += diff[i];
             }
         }
         diffmonth= stoi(dm);
+        diffyear= stoi(dy);
 
-        if(month == diffmonth){
-            string cost_ = this->memlist_[k][4];
-            total_month_cost += stoi(cost_);
+        cout << "달라진 년도 " << diffyear << endl;
 
-        }else break;
+        if(diffyear != year){
+            break;
+        }else{
+            if(month == diffmonth){
+                string cost_ = this->memlist_[k][4];
+                total_month_cost += stoi(cost_);
+
+            }else break;
+        }
 
     }
 
@@ -230,7 +245,7 @@ void Admin::analyzeMonth(){
 
 }
 
-void Admin::mostUser(){
+/*void Admin::mostUser(){
     if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
     vector<pair<int,string>> user_cost_list;
@@ -269,4 +284,4 @@ void Admin::mostUser(){
 
 
 
-}
+}*/
