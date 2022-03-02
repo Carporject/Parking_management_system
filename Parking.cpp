@@ -155,7 +155,6 @@ void Parking::printPos(current *HEAD){
     current *tmp;
     Parking *p=new Parking;
     tmp = HEAD;
-    cout << "test"<<tmp->car_num<<"\n";
     while(tmp){
         p_arr[tmp->car_pos] = 1; //tmp->car_pos 주차된 위치 정보가 존재하면 배열값 1로 전환 ==> 0:빈공간 1:주차된 공간
         tmp = tmp->next;

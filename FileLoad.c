@@ -19,14 +19,14 @@
 
 
      fputs(tmp->car_num,fp);
-     fputs(", ",fp);
+     fputs(",",fp);
      fputs(tmp->car_phone,fp);
-     fputs(", ",fp);
+     fputs(",",fp);
      fputs(tmp->enter_date,fp);
-     fputs(", ",fp);
+     fputs(",",fp);
      fputs(exit_date,fp);
-     fputs(", ",fp);
-     fprintf(fp, "%d \n",cost);
+     fputs(",",fp);
+     fprintf(fp, "%d\n",cost);
 
     //  printf("파일 저장 끝\n");
 
@@ -60,12 +60,11 @@ void savePos(current *HEAD){
 }
 
 void loadPos(current **HEAD, current **TAIL){
-    printf("loadPos\n");
+    // printf("loadPos\n");
     FILE *fp = NULL;
     fp = fopen("parking.txt", "r");
     if(fp!=NULL){
         char string[100];
-
         while(1)
         {
             current *tmp;
@@ -76,9 +75,7 @@ void loadPos(current **HEAD, current **TAIL){
             if(string==NULL){
                 break;
             }
-
-            printf("%s",string);
-            string[strlen(string)-1] = '\0';
+            // string[strlen(string)-1] = '\0';
             char *ptr = strtok(string, ",");
             strcpy(tmp->car_num, ptr);
             ptr = strtok(NULL, ",");

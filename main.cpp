@@ -37,6 +37,11 @@ int main(){
 
 		cout<<"선택하실 메뉴 번호를 입력하세요>>>>";
 		cin >> num;
+		if(cin.fail()){
+			cout << "1~9사이의 숫자를 입력해주세요."<<endl;
+			cin.clear();
+			// cin.ignore(INT_MAX,'\n');
+		}
 
 		cin.ignore(256,'\n'); //개행 무시 
 		switch(num){

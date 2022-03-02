@@ -8,17 +8,18 @@ void Admin::loadExit(){
 
     if(inputFile != NULL){
         char buffer[256];
-
+        int idx = 0;
         while(!feof(inputFile)){
             //한줄 씩 입력 받음
-            if(!fgets(buffer, sizeof(buffer), inputFile)){
+            // if(!fgets(buffer, sizeof(buffer), inputFile)){
 
-                printf(" \n 현재 멤버 수 0명 이므로 관리 불가 입니다 .. \n");
-                break;
-            }
+            //     printf(" \n 현재 멤버 수 0명 이므로 관리 불가 입니다 .. \n");
+            //     break;
+            // }
 
             fgets(buffer, sizeof(buffer), inputFile);
-
+            
+            cout <<(idx++)<< buffer <<endl;
             char *ptr = strtok(buffer, ",");
 
             while(ptr){
