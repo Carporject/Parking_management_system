@@ -33,32 +33,32 @@
      fclose(fp);
  }
 
-// void savePos(current *HEAD){
+void savePos(current *HEAD){
 
-//      printf("savePos 시작\n");
+     printf("savePos 시작\n");
 
-//      FILE *fp = fopen("parking.txt","a");
-//      printf("파일 열기 성공\n");
+     FILE *fp = fopen("parking.txt","a");
+     printf("파일 열기 성공\n");
 
-//      current *tmp;
-//      tmp = HEAD;
-//      printf("%s", tmp->car_num);
-//      while(tmp){
-//         fputs(tmp->car_num,fp);
-//         fputs(",",fp);
-//         fputs(tmp->car_phone,fp);
-//         fputs(",",fp);
-//         fputs(tmp->enter_date,fp);
-//         fputs(",",fp);
-//         fprintf(fp, "%d \n",tmp->car_pos);
+     current *tmp;
+     tmp = HEAD;
+    //  printf("%s",tmp->car_num);
+     while(tmp){
+        fputs(tmp->car_num,fp);
+        fputs(",",fp);
+        fputs(tmp->car_phone,fp);
+        fputs(",",fp);
+        fputs(tmp->enter_date,fp);
+        fputs(",",fp);
+        fprintf(fp, "%d \n",tmp->car_pos);
 
-//         tmp = tmp->next;
-//      }
+        tmp = tmp->next;
+     }
 
-//      printf("파일 저장 끝\n");
+     printf("파일 저장 끝\n");
 
-//      fclose(fp);
-// }
+     fclose(fp);
+}
 
 void loadPos(current **HEAD, current **TAIL){
     printf("loadPos\n");

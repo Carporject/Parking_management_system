@@ -91,23 +91,24 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
     
     while(tmp){
         if(strcmp(tmp-> car_num,exit_carnum)==0){
-            cout<<"번호마자?"<<tmp->car_num;
             p->calc_time(&exit_date);  // 현재 시간을 받아오고
             strcpy(exitd,exit_date.c_str());
             cout<<"날짜"<<exitd;
             p->calc_cost(tmp, &cost); //정산을 하고
-        //     saveExit(tmp,cost,exitd);
-        //     if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
-        //         (*HEAD)=(*HEAD)->next;
-        //     }
-        //     else if(tmp == (*TAIL)){
-        //         (*TAIL) = before;
-        //         (*TAIL)->next = NULL;
-        //     }
-        //     else {
-        //         before->next = tmp ->next;
-        //     } 
-        //     free(tmp); //해당 tmp해제(삭제)
+            cout<<"총 가격"<<cost<<endl;
+            saveExit(tmp,cost,exitd);
+            cout<<tmp->car_num<<"출차 처리되셨습니다.\n";
+            if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
+                (*HEAD)=(*HEAD)->next;
+            }
+            else if(tmp == (*TAIL)){
+                (*TAIL) = before;
+                (*TAIL)->next = NULL;
+            }
+            else {
+                before->next = tmp ->next;
+            } 
+            free(tmp); //해당 tmp해제(삭제)
             break;
         }
         before = tmp;

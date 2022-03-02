@@ -57,6 +57,7 @@ int main(){
 			break;
 		 case(2)://출차
 		 	p->exitCar(&HEAD,&TAIL);
+			savePos(HEAD);
 			break;
 		 case(3)://주차장 전체 현황 보기
 		 	p->printPos(HEAD);

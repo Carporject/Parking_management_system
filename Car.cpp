@@ -11,6 +11,7 @@ using namespace std;
 #include "./include/Car.h"
 #include "./include/FileLoad.h"
 #include "./include/Mem.h"
+#include<vector>
 
 Car::Car(){
     exit_date="";
@@ -21,34 +22,30 @@ Car::~Car(){}
 int calc_hour(string exit, string enter){
     cout<<"입차"<<enter<<endl;
     cout<<"출차"<<exit<<endl;
+    exit += ":00";
+    enter += ":00";
     struct tm intime;
     istringstream in(enter);
-    cout<<"확인"<<enter;
-    in >> get_time(&intime, "%Y %m %d %H:%M");
-    
+    // cout<<"확인"<<enter;
+    in >> get_time(&intime, "%Y %m %d %H:%M:%S");
     struct tm outtime;
     istringstream out(exit);
-    out >> get_time(&outtime, "%Y %m %d %H:%M");
+    out >> get_time(&outtime, "%Y %m %d %H:%M:%S");
     // cout<<"exit"<<outtime.tm_mon;
     //" "기준으로 토큰으로 끊어서 각각 year, month, day, hour, min으로 넣기
     //같은 날 출차이면 그냥 빼기해서 계산
     //다른 날 출차이면 월이 다른 경우, 년이 다른 경우 따로 계산
     printf("입차시간 : %d %d %d %d : %d", intime.tm_year, intime.tm_mon, intime.tm_mday, intime.tm_hour, intime.tm_min);
     printf("출차시간 : %d %d %d %d : %d", outtime.tm_year, outtime.tm_mon, outtime.tm_mday, outtime.tm_hour, outtime.tm_min);
-    
     double diff_time = difftime(mktime(&outtime), mktime(&intime));
     int t_hour, t_min;
-
     t_hour = diff_time / (60*60);
     diff_time = diff_time - (t_hour*60*60);
-
     t_min = diff_time / (60);
     diff_time = diff_time - (t_min*60);
-    
-    
-
     printf ("입차일과 출차일은 %d시 %d분 차이가 납니다.\n", t_hour, t_min);
     return t_hour;
+
 }
 
 void Car::calc_cost(current *tmp, int *cost){
@@ -62,6 +59,8 @@ void Car::calc_cost(current *tmp, int *cost){
     }
     
     p->cost = time*1000;
+    cout<<"eeeeeeeee"<<p->cost;
+    *cost=(p->cost);
     delete p;
     return;
 }
