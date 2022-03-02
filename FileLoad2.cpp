@@ -33,6 +33,8 @@ void loadMem(map <string, string> &mem_map){
         }
     }else{
         printf("파일이 존재하지 않습니다.\n");
+        fp = fopen("member.txt", "w+");
+
     }
     fclose(fp);
     return;

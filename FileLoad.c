@@ -10,7 +10,7 @@
     //  printf("saveExit 시작\n");
 
      FILE *fp = fopen("total.txt","a");
-    //  printf("파일 열기 성공\n");
+     printf("파일 열기 성공\n");
 
      char string[20];
      int size = floor(log10(cost)+1);
@@ -86,10 +86,11 @@ void loadPos(current **HEAD, current **TAIL){
             ptr = strtok(NULL, ",");
             strcpy(tmp->enter_date, ptr);
             ptr = strtok(NULL,",");
-            for(int i = 0; i<strlen(ptr); i++){
-                // printf("%d ptr:%d num:%d", i, ptr[i], ptr[i]-'0');
-                tmp->car_pos = tmp->car_pos*10 + (ptr[i]-'0');
-                // printf("%d\n",tmp->car_pos);
+            for(int i = 0; i<strlen(ptr)-1; i++){
+
+                // printf("%d %d ptr:%d num:%d", i, strlen(ptr),ptr[i], ptr[i]-'0');
+                tmp->car_pos = tmp->car_pos*10 + (ptr[i]-'0');  //윈도우는 txt파일 \r\n  | 리눅스는 \n
+                // printf("dnldnldnldnldl:: %d\n",tmp->car_pos);
             }
             // printf("%d\n",tmp->car_pos);
             if(*HEAD == NULL){
@@ -101,10 +102,9 @@ void loadPos(current **HEAD, current **TAIL){
             }
         }
     }else{
-        printf("파일이 존재하지 않습니다.\n");
-        fp = fopen("parking.txt", "w");
+        // printf("파일이 존재하지 않습니다.\n");
+        fp = fopen("parking.txt", "w+");
 
     }
     fclose(fp);
-    return;
 }

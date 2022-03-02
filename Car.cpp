@@ -59,7 +59,6 @@ void Car::calc_cost(current *tmp, int *cost){
         p->cost = time*1000*0.8;
     }
     else{
-
         p->cost = time*1000;
     }
     *cost=(p->cost);
