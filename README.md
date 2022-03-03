@@ -48,11 +48,6 @@ vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브
 
 ## Built With / 팀원
 
-* [권현지] - file및 정산과 관련 기능 개발
-* [안현빈] - 관리자 기능 개발
-* [정해경] - 주차장과 회원 관련 기능 개발
-
-
 
 이름|개발
 ---|---|
