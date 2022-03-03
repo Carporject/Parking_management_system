@@ -19,14 +19,14 @@
 
 
      fputs(tmp->car_num,fp);
-     fputs(", ",fp);
+     fputs(",",fp);
      fputs(tmp->car_phone,fp);
-     fputs(", ",fp);
+     fputs(",",fp);
      fputs(tmp->enter_date,fp);
-     fputs(", ",fp);
+     fputs(",",fp);
      fputs(exit_date,fp);
-     fputs(", ",fp);
-     fprintf(fp, "%d \n",cost);
+     fputs(",",fp);
+     fprintf(fp, "%d\n",cost);
 
     //  printf("파일 저장 끝\n");
 

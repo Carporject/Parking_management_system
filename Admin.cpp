@@ -2,7 +2,6 @@
 #include <algorithm>
 
 void Admin::loadExit(){
-
     FILE *inputFile = NULL;
     inputFile = fopen("./total.txt", "r");
     char buffer[256];
@@ -35,9 +34,9 @@ void Admin::loadExit(){
 
 void Admin::printMemList(){
 
-    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+    if(lineCount < 1){printf("\n 현재 이용자수가 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
-    cout << "전체 회원 수 : " <<  lineCount << endl;
+    cout << "전체 출차 이용객수 : " <<  lineCount << endl;
 
     cout << "===================================================================="<<'\n';
     cout << "  차량번호     전화번호        입차일         출차일       요금"<<'\n';
@@ -55,7 +54,7 @@ void Admin::printMemList(){
 
 void Admin::perDay(){
 
-    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+    if(lineCount < 1){printf("\n 현재 이용자수가 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
     int change_month[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
@@ -140,7 +139,7 @@ void Admin::perMonth() {
     string search_month, search_year;
     bool find = true;
 
-    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+    if(lineCount < 1){printf("\n 현재 이용자수가 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
     cout << "조회 하고 싶은 년도와 달을 입력하세요 ==> " << endl;
     cout << "년도  : ";
@@ -194,7 +193,7 @@ void Admin::perMonth() {
 
 void Admin::analyzeMonth(){
 
-    if(lineCount < 1){printf("\n 현재 멤버수 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+    if(lineCount < 1){printf("\n 현재 이용자수가 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
     // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
     int month_list[13] = {1,2,3,4,5,6,7,8,9,10,11,12};
