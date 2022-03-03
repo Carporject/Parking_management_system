@@ -26,11 +26,16 @@
 ### Installing / 설치
 
 
-
+Clone the repo : git clone 
 ```
 MOBIS_06.tar -> tar -xvf MOBIS_06.tar
 vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브러리 위치 설정
 ```
+
+## Preview
+
+
+
 
 ## Running the tests / 테스트의 실행
 ```
