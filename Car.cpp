@@ -56,7 +56,8 @@ void Car::calc_cost(current *tmp, int *cost){
     int time = calc_hour(p->exit_date, tmp->enter_date);
     
     if(m.isMem(tmp->car_num)){
-        cout<<tmp->car_num<<"님은 회원이십니다\n";
+        cout<<tmp->car_num<<" 님은 회원이십니다\n";
+        cout<<endl;
         p->cost += time*1000*0.8;
     }
     else{
@@ -79,19 +80,19 @@ void Car::calc_time(string *date){
     }
     mon += to_string(pLocal->tm_mon+1);
     string day="";
-     if(pLocal->tm_mday+1<10){
+     if(pLocal->tm_mday<10){
         day+="0";
     }
     day += to_string(pLocal->tm_mday);
 
     string min="";
-     if(pLocal->tm_min+1<10){
+     if(pLocal->tm_min<10){
         min+="0";
     }
     min += to_string(pLocal->tm_min);
 
     string hour="";
-     if(pLocal->tm_hour+1<10){
+     if(pLocal->tm_hour<10){
         hour+="0";
     }
     hour += to_string(pLocal->tm_hour);
@@ -100,17 +101,22 @@ void Car::calc_time(string *date){
 }
 
 void Car::findPos(current *HEAD){
-    cout<<"찾으시는 자동차 번호를 입력하세요>>";
+    cout<<endl;
+    cout << "============================================="<<'\n';
+    cout<<"\t찾으시는 자동차 번호를 입력하세요>>"<<endl;
+    cout<<"\t\t";
     char car_num[40]="";
     fgets(car_num,100,stdin);
     car_num[strlen(car_num)-1]='\0';
-    
+    cout<<endl; 
+
     current *tmp;
     tmp = HEAD;
 
     while(tmp){
         if(strcmp(tmp->car_num,car_num)==0){
-            cout << tmp->floor<<"층 "<<(tmp->car_pos)+1 <<"번에 주차되어 있습니다.\n";
+            cout << '\t'<<tmp->floor<<"층 "<<(tmp->car_pos)+1 <<"번에 주차되어 있습니다.\n";
+            cout << "============================================="<<'\n';
             cout<<endl;
             return;
         }
@@ -118,7 +124,9 @@ void Car::findPos(current *HEAD){
         tmp = tmp->next;
     }
 
-    cout << "찾으시는 차량이 주차되어있지 않습니다." << endl;
+    cout << "\t찾으시는 차량이 주차되어있지 않습니다." << endl;
+    cout << "============================================="<<'\n';
+    cout<<endl;
 
     return;
 }

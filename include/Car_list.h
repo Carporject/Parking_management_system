@@ -6,6 +6,6 @@ typedef struct Car_list{
    char car_num[40];
    int car_pos;
    int floor=1;
-   Car_list *next;
+   struct Car_list *next;
 } current;
 #endif

@@ -30,10 +30,12 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
         return false;
     }
     while(1){
-        cout<<"주차하실 층을 선택해주세요>>";
+        cout << "============================================="<<'\n';
+        cout<<"\t주차하실 층을 선택해주세요>> "<<endl;
+        cout<<"\t\t";
         string sfloor="0";
         getline(cin,sfloor);
-        
+        cout<<endl;
         if(!Parking::isNumber(sfloor)){
             tmp->floor=0;
         }
@@ -48,15 +50,21 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
         break;
     }
 
-    
-    printPos(*HEAD,tmp->floor);//전체 주차장 모습 보여줌
+    int curcnt=0;
+    printPos(*HEAD,tmp->floor,curcnt);//전체 주차장 모습 보여줌
+    if(curcnt==20){
+        cout<<"해당층은 만차입니다.다른층을 선택해주세요.\n";
+        cout<<endl;
+        return false;
+    }
     //2. 주차 공간 선택
     while(true){
 
         while(1){
-            cout<<"입차하실 공간 번호를 입력하세요>> ";
+            cout<<"입차하실 공간 번호를 입력하세요>>"<<endl;
             string spos="";
             getline(cin,spos);
+            cout<<endl;
             if(!isNumber(spos)){
                 tmp->car_pos=0;
             }
@@ -73,15 +81,17 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
 
         if(CheckEmptyArea(*HEAD,tmp->car_pos,tmp->floor)){ //이미 주차되어 있는지 확인
             tmp->car_pos-=1;
-            cout<<"자동차 번호를 입력하세요>> ";
+            cout<<"자동차 번호를 입력하세요>> "<<endl;
             fgets(tmp->car_num,100,stdin);
             tmp->car_num[strlen(tmp->car_num)-1]='\0';
-            
+            cout<<endl;
+
             if(Checkexitnum(*HEAD,tmp->car_num)){
                 while(1){
-                    cout<<"운전자 전화번호를 입력하세요>> ";
+                    cout<<"운전자 전화번호를 입력하세요>> "<<endl;
                     fgets(tmp->car_phone,100,stdin);
                     tmp->car_phone[strlen(tmp->car_phone)-1]='\0';
+                    cout<<endl;
                     
                     string str(tmp->car_phone);                
                     regex re("[01]{3}-\\d{3,4}-\\d{4}");
@@ -99,16 +109,20 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
                 }
             else{
                 free(tmp);
-                cout<<"이미 주차되어 있는 차량입니다\n";
+                cout<<"\t이미 주차되어 있는 차량입니다\n";
+                cout << "============================================="<<'\n';
                 cout<<endl;
                 return false;
             }
         }
         else{//이미 주차되어있다면 다시 반복
             cout<<"이미 주차되어 있는 공간입니다.\n";
+            cout << "============================================="<<'\n';
             cout<<endl;
             return false;
         }
+        cout << "============================================="<<'\n';
+        cout<<endl;
         return true;
     }
     
@@ -137,7 +151,10 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
     char exit_carnum[100]="";
     
     //1.Car:printPos->Parkinglot->p_position배열을 읽고 있으면->Car:car_pos 없으면->”없다고 출력”
-    cout<<"출차하실 자동차 번호를 입력하세요: ";
+    cout<<endl;
+    cout << "============================================="<<'\n';
+    cout<<"\t출차하실 자동차 번호를 입력하세요: "<<endl;
+    cout<<"\t\t";
     fgets(exit_carnum,100,stdin);
     exit_carnum[strlen(exit_carnum)-1]='\0';
     cout<<endl;
@@ -154,11 +171,12 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
             p->calc_time(&exit_date);  // 현재 시간을 받아오고
             strcpy(exitd,exit_date.c_str());
             p->calc_cost(tmp, &cost); //정산을 하고
-            cout<<"총 가격: "<<cost<<"원 입니다"<<endl;
+            cout<<"\t총 가격: "<<cost<<"원 입니다"<<endl;
             
             saveExit(tmp,cost,exitd);
             
             cout<<tmp->car_num<<" 출차 처리되셨습니다.안녕히가십시오\n";
+            cout<<endl;
             if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
                 (*HEAD)=(*HEAD)->next;
             }
@@ -176,11 +194,13 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
         tmp = tmp -> next;
     }
     if(tmp==NULL){
-        cout<<"출차하실 차량번호를 찾을 수 없습니다.\n";
+        cout<<"\t출차하실 차량번호를 찾을 수 없습니다.\n";
+        cout << "============================================="<<'\n';
         cout<<endl;
         delete p;
         return false;
     }
+    cout << "============================================="<<'\n';
     cout<<endl;
     delete p;
     return true;
@@ -209,7 +229,7 @@ bool Parking::Checkexitnum(current *HEAD, string car_num){
     return true;
 }
 //주차장 전체 현황 출력
-void Parking::printPos(current *HEAD,int curfloor){
+void Parking::printPos(current *HEAD,int curfloor,int &curcnt){
     int p_arr[3][20]={0};
     current *tmp;
     Parking *p=new Parking;
@@ -218,6 +238,7 @@ void Parking::printPos(current *HEAD,int curfloor){
         if (tmp->floor==curfloor){ //현재 층수 맞는지 확인
             // cout<<tmp->floor<<curfloor<<tmp->car_pos;
             p_arr[curfloor-1][tmp->car_pos] = 1; //tmp->car_pos 주차된 위치 정보가 존재하면 배열값 1로 전환 ==> 0:빈공간 1:주차된 공간
+            curcnt++;
         }
         tmp = tmp->next;
         p->empty_area++;
@@ -240,10 +261,10 @@ void Parking::printPos(current *HEAD,int curfloor){
         cout<<setw(80)<<setfill('-')<<' '<<endl;
     // 추후 추가예정
     if(p->empty_area==p->total){
-        cout<<"만차입니다.\n";
+        cout<<"\t\t만차입니다.\n";
     }
     else{
-        cout<<"차량 "<<(p->total)-(p->empty_area)<<"대 주차가능"<<endl;
+        cout<<"\t\t\t차량 "<<(p->total)-(p->empty_area)<<"대 주차가능"<<endl;
     }
     delete p;
     cout<<endl;

@@ -23,7 +23,7 @@ private:
 protected:
     int lineCount;
     int month, day, year;
-    vector<int> cost;
+    vector<int> cost={};
     vector<string> memlist_[INT16_MAX];
 
 public:

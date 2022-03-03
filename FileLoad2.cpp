@@ -4,7 +4,7 @@ using namespace std;
 #include<cstring>
 #include <fstream>
 #include <iostream>
-#include "./include/FileLoad.h"
+#include "./include/FileLoad2.h"
 
 void loadMem(map <string, string> &mem_map){
     FILE *fp = NULL;
@@ -32,7 +32,6 @@ void loadMem(map <string, string> &mem_map){
             (mem_map).insert(make_pair(car,phone));
         }
     }else{
-        printf("파일이 존재하지 않습니다.\n");
         fp = fopen("member.txt", "w+");
 
     }

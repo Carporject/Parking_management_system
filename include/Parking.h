@@ -14,7 +14,7 @@ class Parking{
         bool CheckEmptyArea(current *HEAD, int car_pos,int floor);
         bool Checkexitnum(current *HEAD, string car_num);
         bool exitCar(current **HEAD, current  **TAIL);
-        void printPos(current *HEAD,int curfloor);
+        void printPos(current *HEAD,int curfloor,int &curcnt);
         static bool isNumber(string s);
 };
 #endif

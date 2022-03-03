@@ -25,10 +25,10 @@ int main(){
 		cout << "-----------------------------------------------\n";
 		cout << "	****주차 관리 시스템****     " << '\n';
 		cout << "-----------------------------------------------\n";
-		cout<<"	1.입차			2. 출차\n";
-		cout<<"	3.현황 보기		4. 번호 조회\n";
-		cout<<"	5.회원등록		6. 위치 확인\n";
-		cout<<"	7.관리자 모드		8. 종료\n";
+		cout<<"    1.입차			2. 출차\n";
+		cout<<"    3.현황 보기			4. 번호 조회\n";
+		cout<<"    5.회원등록			6. 위치 확인\n";
+		cout<<"    7.관리자 모드		8. 종료\n";
 		cout << "-----------------------------------------------\n";
 		cout << "-----------------------------------------------\n";
 		cout<<endl;
@@ -56,9 +56,13 @@ int main(){
 		 	{
 			string sfloor="0";
 			int floor=0;
+			int curcnt=0;
 			while(1){
-				cout<<"층을 선택해주세요>>";
+				cout<<endl;
+				cout<<"\t\t층을 선택해주세요>>";
+				cout<<"\t\t";
 				getline(cin,sfloor);
+				cout<<endl;
 				if(!p->isNumber(sfloor)){
 					floor=0;
 				}
@@ -72,7 +76,7 @@ int main(){
 				}
 				break;
 			}
-		 	p->printPos(HEAD,floor);
+		 	p->printPos(HEAD,floor,curcnt);
 			break;
 			}
 		 case(4)://전화번호 찾기
