@@ -78,7 +78,14 @@ void Admin::perDay(){
 
 
     // 마지막 출차일을 일 단위로 변환 
-    int lastday = month * change_month[month] + day;
+    int lastday;
+
+    for(int i=1; i<month+1; i++){
+        lastday += change_month[i];
+    }
+    lastday += day;
+
+    cout << "마지막 출차일 ===> " << lastday; 
 
     // 가장 최근 이용자의 요금으로 total cost 초기화
     total_cost = stoi(this->memlist_[lineCount-1][4]);
@@ -111,7 +118,10 @@ void Admin::perDay(){
             cout << this->memlist_[k+1][j];
         }cout << '\n';
 
-        mon2day_ = diffmonth * change_month[diffmonth] + diffday;
+        for(int i=1; i<diffmonth+1; i++){
+            mon2day_ += change_month[i];
+        }
+        mon2day_ += diffday;
 
         if( (lastday - mon2day_) <=7 && (lastday - mon2day_) >= 0){
             string cost_ = this->memlist_[k][4];
@@ -240,4 +250,3 @@ void Admin::analyzeMonth(){
     cout << "===================월 별 요금 추이(만원단위)==================" << endl; 
 
 }
-
