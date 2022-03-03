@@ -88,13 +88,15 @@ void Admin::perDay(){
     }
     lastday += day;
 
-    total_cost = 0;
+    string exit_cost = this->memlist_[lineCount-1][4];
+    int total_cost = stoi(exit_cost);
+
     // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
     cout << "\n";
     cout << "===================================================================="<<'\n';
     cout << " 차량번호    전화번호        입차일        출차일        요금"<<'\n';
     cout << "===================================================================="<<'\n';
-    for(int k=lineCount-1; k>=0; k--){
+    for(int k=lineCount-2; k>=0; k--){
 
         int diffday, diffmonth;
         int mon2day_ = 0;
@@ -117,7 +119,7 @@ void Admin::perDay(){
 
 
         for(int j=0; j<PINFO; j++){
-            cout << this->memlist_[k][j] << " ";
+            cout << this->memlist_[k+1][j] << " ";
         }cout << '\n';
 
         for(int m=1; m<diffmonth; m++){
