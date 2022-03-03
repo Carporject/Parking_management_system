@@ -45,6 +45,10 @@ int calc_hour(string exit, string enter){
     diff_time = diff_time - (t_min*60);
     printf ("입차일과 출차일은 %d시간 %d분 차이가 납니다.\n", t_hour, t_min);
     printf("\n");
+
+    if(t_min>0){//1시간 1분이면 2시간 요금
+        t_hour++;
+    }
     return t_hour;
 
 }
@@ -52,17 +56,18 @@ int calc_hour(string exit, string enter){
 void Car::calc_cost(current *tmp, int *cost){
     Car *p=new Car;
     Mem m;
+    
     calc_time(&(p->exit_date));
     int time = calc_hour(p->exit_date, tmp->enter_date);
     if(m.isMem(tmp->car_num)){
         cout<<tmp->car_num<<"님은 회원이십니다\n";
-        p->cost = time*1000*0.8;
+        p->cost += time*1000*0.8;
     }
     else{
 
-        p->cost = time*1000;
+        p->cost += time*1000;
     }
-    *cost+=(p->cost);
+    *cost = (p->cost);
     delete p;
     return;
 }
