@@ -63,7 +63,7 @@ void Admin::perDay(){
 
     int change_month[13] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
 
-    string exit_date = this->memlist_[lineCount-1][3];  //출차일 기준으로 7일 계산
+    string exit_date = this->memlist_[lineCount-1][3];
 
     // 문자열 parsing 
     string m = "";
@@ -77,23 +77,24 @@ void Admin::perDay(){
         }
     }
 
-    month = stoi(m);
-    day = stoi(d);
-
+    month = atoi( m.c_str());
+    day = atoi( d.c_str());
 
     // 마지막 출차일을 일 단위로 변환 
-    int lastday = month * change_month[month] + day;
+    int lastday = 0;
 
-    // 가장 최근 이용자의 요금으로 total cost 초기화
-    total_cost = stoi(this->memlist_[lineCount-1][4]);
+    for(int i=1; i<month; i++){
+        lastday += change_month[i];
+    }
+    lastday += day;
 
+    total_cost = 0;
     // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
     cout << "\n";
-    cout << "========================================================================="<<'\n';
-    cout << "  차량번호     전화번호           입차일             출차일         요금"<<'\n';
-    cout << "========================================================================="<<'\n';
-
-    for(int k=lineCount-2; k>=0; k--){
+    cout << "===================================================================="<<'\n';
+    cout << " 차량번호    전화번호        입차일        출차일        요금"<<'\n';
+    cout << "===================================================================="<<'\n';
+    for(int k=lineCount-1; k>=0; k--){
 
         int diffday, diffmonth;
         int mon2day_ = 0;
@@ -111,21 +112,23 @@ void Admin::perDay(){
             }
         }
 
-        diffmonth= stoi(dm);
-        diffday = stoi(dd);
+        diffmonth = atoi( dm.c_str());
+        diffday = atoi( dd.c_str());
+
 
         for(int j=0; j<PINFO; j++){
-            cout << this->memlist_[k+1][j]<<"   ";
+            cout << this->memlist_[k][j] << " ";
         }cout << '\n';
 
-        mon2day_ = diffmonth * change_month[diffmonth] + diffday;
+        for(int m=1; m<diffmonth; m++){
+            mon2day_ += change_month[m];
+        }
+        mon2day_ += diffday;
 
-        if( (lastday - mon2day_) <=7 && (lastday - mon2day_) >= 0){
+        if( abs(lastday - mon2day_) <=7 && abs(lastday - mon2day_) >= 0){
             string cost_ = this->memlist_[k][4];
-            total_cost += stoi(cost_);
-
+            total_cost += atoi(cost_.c_str());
         }else break;
-
     }
     cout << "========================================================================="<<'\n';
     cout << " 마지막 이용 고객으로 부터 7일간 총 정산 금액 ==> " << total_cost <<"원 입니다"<< endl;
@@ -206,7 +209,7 @@ void Admin::perMonth() {
     }
 
     if(find == true){
-        cout << " 찾으시는 정보가 없습니다 " << '\n';
+        cout << " 찾으시는 정보가 없습니다 :( " << '\n';
     }else{
         cout << '\n';
         cout << "========================================================================="<<'\n';
@@ -298,7 +301,5 @@ void Admin::analyzeMonth(){
     cout << " 1월  2월  3월  4월  5월  6월  7월  8월  9월  10월  11월  12월" << endl;
     cout << "=================="<< search_year_<<"년의 월 별 요금 추이===================" << endl;
     cout<<endl;
-    
 
 }
-
