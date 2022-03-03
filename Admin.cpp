@@ -39,12 +39,12 @@ void Admin::printMemList(){
     cout << "전체 출차 이용객수 : " <<  lineCount << endl;
 
     cout << "===================================================================="<<'\n';
-    cout << "  차량번호     전화번호        입차일         출차일       요금"<<'\n';
+    cout << " 차량번호    전화번호        입차일        출차일        요금"<<'\n';
     cout << "===================================================================="<<'\n';
 
     for(int i=0; i<lineCount; i++){
         for(int j=0; j<PINFO; j++){
-            cout << this->memlist_[i][j] << " ";
+            cout << this->memlist_[i][j] <<" ";
         }cout << "\n";
     }
     cout << '\n';
@@ -86,7 +86,9 @@ void Admin::perDay(){
     total_cost = 0;
     // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
     cout << "\n";
-    cout << "======================================================" << '\n';
+    cout << "===================================================================="<<'\n';
+    cout << " 차량번호    전화번호        입차일        출차일        요금"<<'\n';
+    cout << "===================================================================="<<'\n';
     for(int k=lineCount-1; k>=0; k--){
 
         int diffday, diffmonth;
@@ -124,9 +126,10 @@ void Admin::perDay(){
         }else break;
     }
 
-    cout << "======================================================" << '\n';
+    cout << "===================================================================="<<'\n';
     cout << "\n";
     cout << " 마지막 이용 고객으로 부터 7일간 총 정산 금액 ==> " << total_cost << endl;
+    cout << "\n";
 
 }
 
@@ -176,7 +179,7 @@ void Admin::perMonth() {
     }
 
     if(find == true){
-        cout << " 찾으시는 정보가 없습니다 " << '\n';
+        cout << " 찾으시는 정보가 없습니다 :( " << '\n';
     }else{
         cout << '\n';
         cout << year << "년 " << month << " 월의 총 금액은 === >" << total_month_cost << endl;
@@ -189,58 +192,90 @@ void Admin::perMonth() {
 void Admin::analyzeMonth(){
 
     if(lineCount < 1){printf("\n 현재 이용자수가 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+    string search_year;
+    int search_year_;
+    bool find = true;
 
-    // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
+    vector<int> analyze_cost;
+ 
+    cout << "분석 하고자 하는 년도를 입력하세요 : ";
+    cin >> search_year;
+
+    search_year_ = atoi(search_year.c_str());
+
     int month_list[13] = {1,2,3,4,5,6,7,8,9,10,11,12};
 
     for(int m : month_list){
         total_month_cost = 0;
-        for(int k=lineCount-2; k>=0; k--){
+        for(int k=lineCount-1; k>=0; k--){
 
-            int diffmonth;
+            int diffmonth, diffyear;
 
             string diff = this->memlist_[k][3];
 
             string dm = "";
+            string dy = "";
 
-            for(int i=1; i<11; i++){ 
+            for(int i=0; i<11; i++){ 
                 if(i>=6 && i<=7){
                     dm += diff[i];
+                }else if(i>=0 && i<4){
+                    dy += diff[i];
                 }
             }
-            diffmonth= stoi(dm);
+            diffmonth= atoi(dm.c_str());
+            diffyear= atoi(dy.c_str());
 
-            if(m == diffmonth){
+            if(m == diffmonth && search_year_ == diffyear){
+                find = false;
                 string cost_ = this->memlist_[k][4];
                 total_month_cost += stoi(cost_);
             }
         }
         cost.push_back(total_month_cost);
     }
-    
-    int max = *max_element(cost.begin(), cost.end());
 
-    int divide;
-    if(max > 100000){
-        divide = 10000;
-        max = max/divide;
-    }else if(max > 10000 && max < 100000){
-        divide = 1000;
-        max = max/divide;
+    if(find == true){
+        cout << '\n';
+        cout << "찾으시는 년도가 리스트에 없습니다 :( " << endl;
+        cout << '\n';
+        return;
     }
 
+    int whole = 0;
+    int percent;
+    double average;
+
+    //전체를 구하고 
+    for(int i=0; i<cost.size(); i++){
+        whole += cost[i];
+    }
+    //평균을 구하고
+    if (whole == 0) average = 0;
+    else average = whole / cost.size();
+
+    //평균 / 전체 * 100
+    for(int i=0; i<cost.size(); i++){
+        if(cost[i]==0) percent = 0;
+        else percent = (average / cost[i]) * 100;
+
+        analyze_cost.push_back(percent);
+    }
+    
+    int max = *max_element(analyze_cost.begin(), analyze_cost.end());
+
     for(max ; max>0; max--){
-        int costj = 0;
         for(int j=0; j<13; j++){
-            costj = cost[j] / divide;
-            if(costj >= max){
+            if(analyze_cost[j] >= max){
                 cout << " ░░░ ";
             }else cout << "     ";
         }
         cout <<'\n';
     }
+
+
     cout << "=============================================================" << endl; 
     cout << " 1월  2월  3월  4월  5월  6월  7월  8월  9월  10월  11월  12월" << endl; 
-    cout << "===================월 별 요금 추이(만원단위)==================" << endl; 
+    cout << "=================="<< search_year_<<"년의 월 별 요금 추이===================" << endl; 
 
 }
