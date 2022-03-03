@@ -6,7 +6,7 @@
 // #include<iostream>
 // using namespace std;
 Parking::Parking(){
-    total=20;
+    total=20*3;
     empty_area=0;
     }
 Parking::~Parking(){}
@@ -18,18 +18,32 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
         cout<< "저장 공간을 할당 받지 못했습니다.\n";
         return false;
     }
-    printPos(*HEAD);//전체 주차장 모습 보여줌
+    while(1){
+        cout<<"주차하실 층을 선택해주세요>>";
+        cin >> tmp->floor;
+        cin.ignore(256,'\n'); //개행 무시
+        if(tmp->floor>3){
+            cout<<"잘못된 층수를 입력하셨습니다.다시 입력해주세요\n";
+            cout<<endl;
+            continue;
+        }
+        break;
+    }
+
+    
+    printPos(*HEAD,tmp->floor);//전체 주차장 모습 보여줌
     //2. 주차 공간 선택
     while(true){
         cout<<"입차하실 공간 번호를 입력하세요>> ";
         cin >> tmp->car_pos;
         cin.ignore(256,'\n'); //개행 무시
+       
         if (tmp->car_pos<=0 || tmp->car_pos>20){
             cout<<"번호를 잘못입력하셨습니다. 다시 입력해주세요\n";
             cout<<endl;
             continue;
         }
-        if(CheckEmptyArea(*HEAD,tmp->car_pos)){ //이미 주차되어 있는지 확인
+        if(CheckEmptyArea(*HEAD,tmp->car_pos,tmp->floor)){ //이미 주차되어 있는지 확인
             tmp->car_pos-=1;
             cout<<"자동차 번호를 입력하세요>> ";
             fgets(tmp->car_num,100,stdin);
@@ -39,7 +53,7 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
                 fgets(tmp->car_phone,100,stdin);
                 tmp->car_phone[strlen(tmp->car_phone)-1]='\0';
                 cout<<endl;
-                cout<<"차량번호 "<<tmp->car_num<<" 입차완료 되셨습니다\n";
+                cout<<"차량번호 "<<tmp->car_num<<"는"<<tmp->floor<<"층에 입차완료 되셨습니다\n";
                 cout<<endl;
                 break;
                 }
@@ -127,11 +141,11 @@ bool Parking::exitCar(current **HEAD,current  **TAIL){
     return true;
 }
 //해당 주차장 구역이 비었는지 확인
-bool Parking::CheckEmptyArea(current *HEAD, int car_pos){
+bool Parking::CheckEmptyArea(current *HEAD, int car_pos,int floor){
     current *tmp;
     tmp=HEAD;
     while(tmp){
-        if(tmp->car_pos == (car_pos-1)){
+        if(tmp->car_pos == (car_pos-1) && floor==tmp->floor){
             return false;
         }
         tmp = tmp -> next;
@@ -150,13 +164,16 @@ bool Parking::Checkexitnum(current *HEAD, string car_num){
     return true;
 }
 //주차장 전체 현황 출력
-void Parking::printPos(current *HEAD){
-    int p_arr[20]={0};
+void Parking::printPos(current *HEAD,int curfloor){
+    int p_arr[3][20]={0};
     current *tmp;
     Parking *p=new Parking;
     tmp = HEAD;
     while(tmp){
-        p_arr[tmp->car_pos] = 1; //tmp->car_pos 주차된 위치 정보가 존재하면 배열값 1로 전환 ==> 0:빈공간 1:주차된 공간
+        if (tmp->floor==curfloor){ //현재 층수 맞는지 확인
+            // cout<<tmp->floor<<curfloor<<tmp->car_pos;
+            p_arr[curfloor-1][tmp->car_pos] = 1; //tmp->car_pos 주차된 위치 정보가 존재하면 배열값 1로 전환 ==> 0:빈공간 1:주차된 공간
+        }
         tmp = tmp->next;
         p->empty_area++;
     }
@@ -166,7 +183,7 @@ void Parking::printPos(current *HEAD){
         for(int i=0;i<4;i++){
             cout<<setw(5)<<setfill(' ');
             for(int j=0;j<5;j++){
-                if(p_arr[i*5+j]==1){
+                if(p_arr[curfloor-1][i*5+j]==1){
                     cout<<"|"<<setw(5)<<setfill(' ')<<'X'<<setw(5)<<setfill(' ')<<'|'<<setw(5)<<setfill(' ');
                 }
                 else{

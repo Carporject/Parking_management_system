@@ -11,9 +11,9 @@ class Parking{
         Parking();
         ~Parking();
         bool enterCar(current **HEAD,current  **TAIL);
-        bool CheckEmptyArea(current *HEAD, int car_pos);
+        bool CheckEmptyArea(current *HEAD, int car_pos,int floor);
         bool Checkexitnum(current *HEAD, string car_num);
         bool exitCar(current **HEAD, current  **TAIL);
-        void printPos(current *HEAD);
+        void printPos(current *HEAD,int curfloor);
 };
 #endif

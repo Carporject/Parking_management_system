@@ -114,7 +114,7 @@ void Car::findPos(current *HEAD){
 
     while(tmp){
         if(strcmp(tmp->car_num,car_num)==0){
-            cout << (tmp->car_pos)+1 <<"번에 주차되어 있습니다.\n";
+            cout << tmp->floor<<"층 "<<(tmp->car_pos)+1 <<"번에 주차되어 있습니다.\n";
             cout<<endl;
             return;
         }

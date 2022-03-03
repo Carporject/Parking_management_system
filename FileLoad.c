@@ -10,7 +10,7 @@
     //  printf("saveExit 시작\n");
 
      FILE *fp = fopen("total.txt","a");
-     printf("파일 열기 성공\n");
+    //  printf("파일 열기 성공\n");
 
      char string[20];
      int size = floor(log10(cost)+1);
@@ -49,7 +49,8 @@ void savePos(current *HEAD){
         fputs(",",fp);
         fputs(tmp->enter_date,fp);
         fputs(",",fp);
-        fprintf(fp, "%d\n",tmp->car_pos);
+        fprintf(fp, "%d,",tmp->car_pos);
+        fprintf(fp, "%d\n",tmp->floor);
 
         tmp = tmp->next;
      }
@@ -75,7 +76,7 @@ void loadPos(current **HEAD, current **TAIL){
             if(string==NULL){
                 break;
             }
-            // string[strlen(string)-1] = '\0';
+            string[strlen(string)-1] = '\0';
             char *ptr = strtok(string, ",");
             strcpy(tmp->car_num, ptr);
             ptr = strtok(NULL, ",");
@@ -83,13 +84,21 @@ void loadPos(current **HEAD, current **TAIL){
             ptr = strtok(NULL, ",");
             strcpy(tmp->enter_date, ptr);
             ptr = strtok(NULL,",");
-            for(int i = 0; i<strlen(ptr)-1; i++){
+            
+            for(int i = 0; i<strlen(ptr); i++){
 
                 // printf("%d %d ptr:%d num:%d", i, strlen(ptr),ptr[i], ptr[i]-'0');
                 tmp->car_pos = tmp->car_pos*10 + (ptr[i]-'0');  //윈도우는 txt파일 \r\n  | 리눅스는 \n
                 // printf("dnldnldnldnldl:: %d\n",tmp->car_pos);
             }
-            // printf("%d\n",tmp->car_pos);
+
+            ptr = strtok(NULL,",");
+
+            for(int i = 0; i<strlen(ptr); i++){
+                tmp->floor = tmp->floor*10 + (ptr[i]-'0');  //윈도우는 txt파일 \r\n  | 리눅스는 \n
+            }
+ 
+            // printf("cccccccccccccccccccccccc%d\n",tmp->floor);
             if(*HEAD == NULL){
                 *HEAD = *TAIL = tmp;
             }

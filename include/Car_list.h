@@ -5,6 +5,7 @@ typedef struct Car_list{
    char car_phone[40];
    char car_num[40];
    int car_pos;
+   int floor=1;
    Car_list *next;
 } current;
 #endif

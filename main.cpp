@@ -53,8 +53,20 @@ int main(){
 			savePos(HEAD);
 			break;
 		 case(3)://주차장 전체 현황 보기
-		 	p->printPos(HEAD);
-			break;
+		 	{int floor=1;
+		 	while(1){
+				cout<<"층을 선택해주세요>>";
+				cin >> floor;
+				cin.ignore(256,'\n'); //개행 무시
+				if(floor>3){
+					cout<<"잘못된 층수를 입력하셨습니다.다시 입력해주세요\n";
+					cout<<endl;
+					continue;
+				}
+				break;
+			}
+		 	p->printPos(HEAD,floor);
+			break;}
 		 case(4)://전화번호 찾기
 		 	m->findPhoneNum(HEAD);
 			break;
