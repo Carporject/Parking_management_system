@@ -8,10 +8,13 @@
 
 ### Prerequisites / 선행 조건
 
-아래 사항들이 설치가 되어있어야합니다.
-
 ```
-예시
+컴파일: MOBIS_06 폴더에서 make입력 -> 자동 컴파일
+       
+        MOBIS_06->make
+        libcpp->make
+        maincpp->make
+    
 ```
 
 ### Installing / 설치
@@ -19,12 +22,13 @@
 
 
 ```
-예시
+MOBIS_06.tar -> tar -xvf MOBIS_06.tar
 ```
 
 ## Running the tests / 테스트의 실행
-
-어떻게 테스트가 이 시스템에서 돌아가는지에 대한 설명을 합니다
+```
+실행: ./maincpp/main
+```
 
 ### 테스트는 이런 식으로 동작합니다
 
