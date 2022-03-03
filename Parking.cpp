@@ -3,14 +3,25 @@
 #include "./include/Parking.h"
 #include "./include/Car.h"
 #include"./include/FileLoad.h"
-// #include<iostream>
-// using namespace std;
+#include<iostream>
+#include<regex>
+using namespace std;
 Parking::Parking(){
     total=20*3;
     empty_area=0;
     }
 Parking::~Parking(){}
 //입차 함수 기능
+bool Parking::isNumber(string s) {
+    if(s.size()==0) return false;
+    for(int i=0;i<s.size();i++) {
+        if(s[0]=='0') return false;
+        if((s[i]>='0' && s[i]<='9')==false) {
+            return false;
+        }
+    }
+    return true;
+}
 bool Parking::enterCar(current **HEAD,current  **TAIL){
     current *tmp;
     tmp=(current*)malloc(sizeof(current));
@@ -20,9 +31,16 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
     }
     while(1){
         cout<<"주차하실 층을 선택해주세요>>";
-        cin >> tmp->floor;
-        cin.ignore(256,'\n'); //개행 무시
-        if(tmp->floor>3){
+        string sfloor="0";
+        getline(cin,sfloor);
+        
+        if(!Parking::isNumber(sfloor)){
+            tmp->floor=0;
+        }
+        else{
+            tmp->floor=atoi(sfloor.c_str());
+        }
+        if(tmp->floor>3 || tmp->floor<=0){
             cout<<"잘못된 층수를 입력하셨습니다.다시 입력해주세요\n";
             cout<<endl;
             continue;
@@ -34,24 +52,46 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
     printPos(*HEAD,tmp->floor);//전체 주차장 모습 보여줌
     //2. 주차 공간 선택
     while(true){
-        cout<<"입차하실 공간 번호를 입력하세요>> ";
-        cin >> tmp->car_pos;
-        cin.ignore(256,'\n'); //개행 무시
-       
-        if (tmp->car_pos<=0 || tmp->car_pos>20){
-            cout<<"번호를 잘못입력하셨습니다. 다시 입력해주세요\n";
-            cout<<endl;
-            continue;
+
+        while(1){
+            cout<<"입차하실 공간 번호를 입력하세요>> ";
+            string spos="";
+            getline(cin,spos);
+            if(!isNumber(spos)){
+                tmp->car_pos=0;
+            }
+            else{
+                tmp->car_pos=atoi(spos.c_str());
+            }
+            if (tmp->car_pos<=0 || tmp->car_pos>20){
+                cout<<"번호를 잘못입력하셨습니다. 다시 입력해주세요\n";
+                cout<<endl;
+                continue;
+            }
+            break;
         }
+
         if(CheckEmptyArea(*HEAD,tmp->car_pos,tmp->floor)){ //이미 주차되어 있는지 확인
             tmp->car_pos-=1;
             cout<<"자동차 번호를 입력하세요>> ";
             fgets(tmp->car_num,100,stdin);
             tmp->car_num[strlen(tmp->car_num)-1]='\0';
+            
             if(Checkexitnum(*HEAD,tmp->car_num)){
-                cout<<"운전자 전화번호를 입력하세요>> ";
-                fgets(tmp->car_phone,100,stdin);
-                tmp->car_phone[strlen(tmp->car_phone)-1]='\0';
+                while(1){
+                    cout<<"운전자 전화번호를 입력하세요>> ";
+                    fgets(tmp->car_phone,100,stdin);
+                    tmp->car_phone[strlen(tmp->car_phone)-1]='\0';
+                    
+                    string str(tmp->car_phone);                
+                    regex re("[01]{3}-\\d{3,4}-\\d{4}");
+                    if(regex_match(str, re) == 0){
+                        cout << "잘못된 입력입니다. 전화번호 형식을 확인해주세요."<<endl;
+                        cout<<endl;
+                        continue;
+                    }
+                    break;
+                }
                 cout<<endl;
                 cout<<"차량번호 "<<tmp->car_num<<"는"<<tmp->floor<<"층에 입차완료 되셨습니다\n";
                 cout<<endl;
@@ -62,7 +102,6 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
                 cout<<"이미 주차되어 있는 차량입니다\n";
                 cout<<endl;
                 return false;
-                // break;
             }
         }
         else{//이미 주차되어있다면 다시 반복
@@ -72,12 +111,15 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
         }
         return true;
     }
+    
     //3. 입차 시간 기록 car *p p->enter_date=calc_time()
     Car *ttime=new Car;
     string enterd=""; //tmp->enter_date:char[] -> string 변환
+    
     ttime->calc_time(&enterd); //현재시간 불러오기
     strcpy(tmp->enter_date,enterd.c_str());
     tmp->next = NULL;                  //segementation 오류 지점
+    
     if (*HEAD==NULL){
         (*HEAD)=(*TAIL)=tmp;
     }
@@ -93,26 +135,29 @@ bool Parking::enterCar(current **HEAD,current  **TAIL){
 bool Parking::exitCar(current **HEAD,current  **TAIL){
     current *tmp,*before;
     char exit_carnum[100]="";
+    
     //1.Car:printPos->Parkinglot->p_position배열을 읽고 있으면->Car:car_pos 없으면->”없다고 출력”
     cout<<"출차하실 자동차 번호를 입력하세요: ";
     fgets(exit_carnum,100,stdin);
     exit_carnum[strlen(exit_carnum)-1]='\0';
     cout<<endl;
+    
     Car *p=new Car; //Car클래스 생성자
     tmp=*HEAD;
     before=*HEAD;
     string exit_date="";
     int cost=0;
     char exitd[100]="";
-    // cout<<"출차"<<exit_carnum;
-    // // strcpy(exitd,exit_date.c_str());//exit_date string to char[]
+    
     while(tmp){
         if(strcmp(tmp-> car_num,exit_carnum)==0){
             p->calc_time(&exit_date);  // 현재 시간을 받아오고
             strcpy(exitd,exit_date.c_str());
             p->calc_cost(tmp, &cost); //정산을 하고
             cout<<"총 가격: "<<cost<<"원 입니다"<<endl;
+            
             saveExit(tmp,cost,exitd);
+            
             cout<<tmp->car_num<<" 출차 처리되셨습니다.안녕히가십시오\n";
             if(tmp ==(*HEAD)) {//  노드 위치 케이스 확인 필요!!!!!!!!!!(헤드, 테일, 중간)
                 (*HEAD)=(*HEAD)->next;

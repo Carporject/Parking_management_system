@@ -26,6 +26,7 @@ void loadMem(map <string, string> &mem_map){
             char *pnum;
             cnum = strtok(buffer, ",");
             pnum = strtok(NULL, ",");
+            
             string car(cnum);
             string phone(pnum);
             (mem_map).insert(make_pair(car,phone));

@@ -36,17 +36,22 @@ void Admin::printMemList(){
 
     if(lineCount < 1){printf("\n 현재 이용자수가 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
-    cout << "전체 출차 이용객수 : " <<  lineCount << endl;
-
-    cout << "===================================================================="<<'\n';
-    cout << "  차량번호     전화번호        입차일         출차일       요금"<<'\n';
-    cout << "===================================================================="<<'\n';
+    cout << "========================================================================="<<'\n';
+    cout << "  차량번호     전화번호           입차일             출차일         요금"<<'\n';
+    cout << "========================================================================="<<'\n';
 
     for(int i=0; i<lineCount; i++){
         for(int j=0; j<PINFO; j++){
-            cout << this->memlist_[i][j] << " ";
+            if(j==PINFO-1){
+                cout << this->memlist_[i][j];
+                break;
+            }
+            cout << this->memlist_[i][j] << "   ";
         }cout << "\n";
     }
+    
+    cout << "========================================================================="<<'\n';
+    cout << "전체 출차 이용객수 : " <<  lineCount << endl;
     cout << '\n';
 
 
@@ -63,11 +68,11 @@ void Admin::perDay(){
     // 문자열 parsing 
     string m = "";
     string d = "";
-
+    
     for(int i=1; i<11; i++){ 
-        if(i>=6 && i<=7){
+        if(i>=5 && i<=6){
             m += exit_date[i];
-        }else if(i>=9 && i<=10){
+        }else if(i>=8 && i<=9){
             d += exit_date[i];
         }
     }
@@ -84,7 +89,10 @@ void Admin::perDay(){
 
     // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
     cout << "\n";
-    cout << "======================================================" << '\n';
+    cout << "========================================================================="<<'\n';
+    cout << "  차량번호     전화번호           입차일             출차일         요금"<<'\n';
+    cout << "========================================================================="<<'\n';
+
     for(int k=lineCount-2; k>=0; k--){
 
         int diffday, diffmonth;
@@ -107,7 +115,7 @@ void Admin::perDay(){
         diffday = stoi(dd);
 
         for(int j=0; j<PINFO; j++){
-            cout << this->memlist_[k+1][j];
+            cout << this->memlist_[k+1][j]<<"   ";
         }cout << '\n';
 
         mon2day_ = diffmonth * change_month[diffmonth] + diffday;
@@ -119,26 +127,53 @@ void Admin::perDay(){
         }else break;
 
     }
-    cout << "======================================================" << '\n';
-    cout << "\n";
-    cout << " 마지막 이용 고객으로 부터 7일간 총 정산 금액 ==> " << total_cost << endl;
+    cout << "========================================================================="<<'\n';
+    cout << " 마지막 이용 고객으로 부터 7일간 총 정산 금액 ==> " << total_cost <<"원 입니다"<< endl;
+    cout<<endl;
 
 }
 
 void Admin::perMonth() {
     string search_month, search_year;
+    int month,year;
     bool find = true;
 
     if(lineCount < 1){printf("\n 현재 이용자수가 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
 
-    cout << "조회 하고 싶은 년도와 달을 입력하세요 ==> " << endl;
-    cout << "년도  : ";
-    cin >> search_year;
-    cout << "월    : ";
-    cin >> search_month;
+    cout << "조회 하고 싶은 년도와 달을 입력하세요." << endl;
+    while(1){
+        cout << "년도  : ";
+        getline(cin,search_year);
+        if(!Parking::isNumber(search_year)){
+            year=0;
+        }
+        else{
+            year=atoi(search_year.c_str());
+        }
+        if(year<=1900){
+            cout<<"잘못된 년도를 입력하셨습니다.다시 입력해주세요\n";
+            cout<<endl;
+            continue;
+        }
+        break;
+    }
 
-    month = stoi(search_month);
-    year= stoi(search_year);
+    while(1){
+        cout << "월(ex 3월: 3)   : ";
+        getline(cin,search_month);
+        if(!Parking::isNumber(search_month)){
+            month=0;
+        }
+        else{
+            month=atoi(search_month.c_str());
+        }
+        if(month<=0 || month>12){
+            cout<<"잘못된 월를 입력하셨습니다.다시 입력해주세요\n";
+            cout<<endl;
+            continue;
+        }
+        break;
+    }
 
     total_month_cost = 0;
 
@@ -174,7 +209,8 @@ void Admin::perMonth() {
         cout << " 찾으시는 정보가 없습니다 " << '\n';
     }else{
         cout << '\n';
-        cout << year << "년 " << month << " 월의 총 금액은 === >" << total_month_cost << endl;
+        cout << "========================================================================="<<'\n';
+        cout << year << "년 " << month << " 월의 총 금액은 ===> " << total_month_cost <<"원입니다\n"<<endl;
         cout << '\n';
 
     }
@@ -182,61 +218,87 @@ void Admin::perMonth() {
 }
 
 void Admin::analyzeMonth(){
-
     if(lineCount < 1){printf("\n 현재 이용자수가 0명이므로 관리 내역 조회 불가입니다.\n "); return;}
+    string syear;
+    int search_year_;
+    bool find = true;
+    vector<int> analyze_cost;
+    while(1){
+        cout << "분석 하고자 하는 년도를 입력하세요 : ";
+        getline(cin,syear);
+        if(!Parking::isNumber(syear)){
+            search_year_=0;
+        }
+        else{
+            search_year_=atoi(syear.c_str());
+        }
+        if(search_year_<=0){
+            cout<<" 년도를 잘못 입력하셨습니다.다시 입력해주세요\n";
+            cout<<endl;
+            continue;
+        }
+        break;
+    }
 
-    // 리스트 순회 하며 날짜 변환 -> 일단위로 변환 -> 차가 7일 이내면 요금 더함
-    int month_list[13] = {1,2,3,4,5,6,7,8,9,10,11,12};
 
-    for(int m : month_list){
+    for(int m=1;m<13;m++){
         total_month_cost = 0;
-        for(int k=lineCount-2; k>=0; k--){
-
-            int diffmonth;
-
+        for(int k=lineCount-1; k>=0; k--){
+            int diffmonth, diffyear;
             string diff = this->memlist_[k][3];
-
             string dm = "";
-
-            for(int i=1; i<11; i++){ 
-                if(i>=6 && i<=7){
+            string dy = "";
+            for(int i=0; i<11; i++){
+                if(i>=5 && i<=6){
                     dm += diff[i];
+                }else if(i>=0 && i<4){
+                    dy += diff[i];
                 }
             }
-            diffmonth= stoi(dm);
-
-            if(m == diffmonth){
+            diffmonth= atoi(dm.c_str());
+            diffyear= atoi(dy.c_str());
+            if(m == diffmonth && search_year_ == diffyear){
+                find = false;
                 string cost_ = this->memlist_[k][4];
                 total_month_cost += stoi(cost_);
             }
         }
         cost.push_back(total_month_cost);
     }
-    
-    int max = *max_element(cost.begin(), cost.end());
-
-    int divide;
-    if(max > 100000){
-        divide = 10000;
-        max = max/divide;
-    }else if(max > 10000 && max < 100000){
-        divide = 1000;
-        max = max/divide;
+    if(find == true){
+        cout << '\n';
+        cout << "찾으시는 년도가 리스트에 없습니다 :( " << endl;
+        cout << '\n';
+        return;
+    }
+    int whole = 0;
+    double percent;
+    double average;
+    //전체를 구하고
+    for(int i=0; i<cost.size(); i++){
+        whole += cost[i];
     }
 
+    //평균 / 전체 * 100
+    for(int i=0; i<cost.size(); i++){
+        percent = ((double)cost[i]/(double)whole)*100;
+        analyze_cost.push_back(percent);
+    }
+    int max = *max_element(analyze_cost.begin(), analyze_cost.end());
     for(max ; max>0; max--){
-        int costj = 0;
-        for(int j=0; j<13; j++){
-            costj = cost[j] / divide;
-            if(costj >= max){
-                cout << " ░░░ ";
+        for(int j=0; j<analyze_cost.size(); j++){
+            if(analyze_cost[j] >= max){
+                cout << " ■■■ ";
             }else cout << "     ";
         }
         cout <<'\n';
     }
-    cout << "=============================================================" << endl; 
-    cout << " 1월  2월  3월  4월  5월  6월  7월  8월  9월  10월  11월  12월" << endl; 
-    cout << "===================월 별 요금 추이(만원단위)==================" << endl; 
+
+    cout << "=============================================================" << endl;
+    cout << " 1월  2월  3월  4월  5월  6월  7월  8월  9월  10월  11월  12월" << endl;
+    cout << "=================="<< search_year_<<"년의 월 별 요금 추이===================" << endl;
+    cout<<endl;
+    
 
 }
 

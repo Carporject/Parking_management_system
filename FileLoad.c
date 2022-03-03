@@ -16,8 +16,6 @@
      int size = floor(log10(cost)+1);
      
      //순서 : tmp->car_num, tmp-> phone_num, temp -> enter_date, exit_date, cost
-
-
      fputs(tmp->car_num,fp);
      fputs(",",fp);
      fputs(tmp->car_phone,fp);
@@ -36,7 +34,6 @@
 void savePos(current *HEAD){
 
     //  printf("savePos 시작\n");
-
      FILE *fp = fopen("parking.txt","w");
     //  printf("파일 열기 성공\n");
 
@@ -71,11 +68,13 @@ void loadPos(current **HEAD, current **TAIL){
             current *tmp;
             tmp = (current*)malloc(sizeof(current));
             fgets(string, sizeof(string), fp);
+            
             if(feof(fp))
                 break;
             if(string==NULL){
                 break;
             }
+            
             string[strlen(string)-1] = '\0';
             char *ptr = strtok(string, ",");
             strcpy(tmp->car_num, ptr);
@@ -86,10 +85,8 @@ void loadPos(current **HEAD, current **TAIL){
             ptr = strtok(NULL,",");
             
             for(int i = 0; i<strlen(ptr); i++){
-
                 // printf("%d %d ptr:%d num:%d", i, strlen(ptr),ptr[i], ptr[i]-'0');
                 tmp->car_pos = tmp->car_pos*10 + (ptr[i]-'0');  //윈도우는 txt파일 \r\n  | 리눅스는 \n
-                // printf("dnldnldnldnldl:: %d\n",tmp->car_pos);
             }
 
             ptr = strtok(NULL,",");
@@ -97,8 +94,6 @@ void loadPos(current **HEAD, current **TAIL){
             for(int i = 0; i<strlen(ptr); i++){
                 tmp->floor = tmp->floor*10 + (ptr[i]-'0');  //윈도우는 txt파일 \r\n  | 리눅스는 \n
             }
- 
-            // printf("cccccccccccccccccccccccc%d\n",tmp->floor);
             if(*HEAD == NULL){
                 *HEAD = *TAIL = tmp;
             }

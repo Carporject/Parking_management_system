@@ -8,7 +8,6 @@
 #include<iomanip>
 #include<cstring>
 using namespace std;
-
 int main(){
 	Parking *p=new Parking();
 	Mem *m=new Mem();
@@ -18,31 +17,32 @@ int main(){
 	current *HEAD=NULL;
     current *TAIL=NULL;
 
-	int num=0;
+	// int num=0;
+	string snum;
+
 	loadPos(&HEAD,&TAIL);
 	while(true){
-		cout<<"---------------------------------------\n";
-		cout<<"         ****주차관리시스템****         \n";
-		cout<<"---------------------------------------\n";
-		cout<<"       1.입차           2.출차         \n";
-		cout<<"3.주차장 전체 현황 보기  4. 번호 조회    \n";
-		cout<<"     5.회원등록         6. 위치 확인    \n";
-		cout<<"     7.load             8. 관리자 모드  \n";
-		cout<<"     9.종료                            \n";
-		cout<<"---------------------------------------\n";
-		cout<<"---------------------------------------\n";
+		cout << "-----------------------------------------------\n";
+		cout << "	****주차 관리 시스템****     " << '\n';
+		cout << "-----------------------------------------------\n";
+		cout<<"	1.입차			2. 출차\n";
+		cout<<"	3.현황 보기		4. 번호 조회\n";
+		cout<<"	5.회원등록		6. 위치 확인\n";
+		cout<<"	7.관리자 모드		8. 종료\n";
+		cout << "-----------------------------------------------\n";
+		cout << "-----------------------------------------------\n";
 		cout<<endl;
 
 
 		cout<<"선택하실 메뉴 번호를 입력하세요>>>>";
-		cin >> num;
-		if(cin.fail()){
-			cout << "1~9사이의 숫자를 입력해주세요."<<endl;
-			cin.clear();
-			// cin.ignore(INT_MAX,'\n');
+		int num=0;
+		getline(cin,snum);
+		if(!p->isNumber(snum)){
+			num=0;
 		}
-
-		cin.ignore(256,'\n'); //개행 무시 
+		else{
+			num=atoi(snum.c_str());
+		}
 		switch(num){
 		 case(1)://입차
 		 	if(p->enterCar(&HEAD,&TAIL))
@@ -53,12 +53,19 @@ int main(){
 			savePos(HEAD);
 			break;
 		 case(3)://주차장 전체 현황 보기
-		 	{int floor=1;
-		 	while(1){
+		 	{
+			string sfloor="0";
+			int floor=0;
+			while(1){
 				cout<<"층을 선택해주세요>>";
-				cin >> floor;
-				cin.ignore(256,'\n'); //개행 무시
-				if(floor>3){
+				getline(cin,sfloor);
+				if(!p->isNumber(sfloor)){
+					floor=0;
+				}
+				else{
+					floor=atoi(sfloor.c_str());
+				}
+				if(floor>3 || floor<=0){
 					cout<<"잘못된 층수를 입력하셨습니다.다시 입력해주세요\n";
 					cout<<endl;
 					continue;
@@ -66,7 +73,8 @@ int main(){
 				break;
 			}
 		 	p->printPos(HEAD,floor);
-			break;}
+			break;
+			}
 		 case(4)://전화번호 찾기
 		 	m->findPhoneNum(HEAD);
 			break;
@@ -76,16 +84,19 @@ int main(){
 		 case(6)://위치 반환
 		 	c->findPos(HEAD);
 		 	break;
-		 case(8)://관리자 모드
+		 case(7)://관리자 모드
 		 {
 		 	Admin admin;
 			Admin *a = &admin;
 
 		 	break;
 		 }
-		 case(9)://종료
+		 case(8)://종료
 		 	return 0;
-		 				 
+		default:
+			cout<<"알맞은 숫자를 입력해주세요!\n";
+			cout<<endl;
+		 	continue;			 
 		 }
 	}
 	delete p;
