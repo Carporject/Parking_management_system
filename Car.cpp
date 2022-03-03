@@ -15,7 +15,7 @@ using namespace std;
 
 Car::Car(){
     exit_date="";
-    cost=0;
+    cost=1000;
     }
 Car::~Car(){}
 
@@ -62,7 +62,7 @@ void Car::calc_cost(current *tmp, int *cost){
 
         p->cost = time*1000;
     }
-    *cost=(p->cost);
+    *cost+=(p->cost);
     delete p;
     return;
 }
