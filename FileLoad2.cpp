@@ -4,7 +4,6 @@ using namespace std;
 #include<cstring>
 #include <fstream>
 #include <iostream>
-
 #include "./include/FileLoad.h"
 
 void loadMem(map <string, string> &mem_map){
