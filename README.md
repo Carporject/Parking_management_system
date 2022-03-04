@@ -33,9 +33,13 @@ MOBIS_06.tar -> tar -xvf MOBIS_06.tar
 vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브러리 위치 설정
 ```
 
-## Preview
+## 실행방법
 
-
+1. 압축파일을 다운
+2. tar -xvf MOBIS_06.tar 명령어를 사용하여 압축 해제
+3. .bashsrc 에 공유라이브러리 위치 설정 vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib
+4. make명령어를 사용하여 컴파일
+5. ./maincpp/main을 입력하여 실행
 
 
 ## Running the tests / 테스트의 실행
