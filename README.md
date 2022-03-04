@@ -42,7 +42,7 @@ vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브
 실행: ./maincpp/main
 ```
 
-### 테스트는 이런 식으로 동작합니다
+### 코드 점검표
 
 왜 이렇게 동작하는지, 설명합니다
 
