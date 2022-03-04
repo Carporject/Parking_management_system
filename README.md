@@ -27,7 +27,7 @@
 ## 실행방법
 ```
 1. 압축파일을 홈디렉토리에 다운
-2. 홈디렉토리에서 tar -xvf 6조_project.tar 명령어를 사용하여 압축 해제
+2. 홈디렉토리에서 tar -xvf MOBIS_06.tar 명령어를 사용하여 압축 해제
 3. .bashsrc 파일에 공유라이브러리 위치 설정 
     (ex : vi .bashsrc를 입력하여 마지막줄에 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 추가)
 4. MOBIS_06폴더에서 make명령어를 사용하여 컴파일
