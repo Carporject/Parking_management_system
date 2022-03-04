@@ -5,11 +5,11 @@
 > 운전자에게 편리한 주차 시스템을 제공하기 위한 프로그램으로 입차,출차,정산 등의 기능을 수행할 수 있으며 관리자는 정산내역을 관리할 수 있는 프로그램
 >
 
-### Environment / 실행 환경
+### Environment / 환경
 
 ```
-가상머신 기반의 라즈비안
-    
+실행 환경 : 가상머신 기반의 Raspbian
+개발 환경 : C/C++, Raspbian(Linux), Mobaxterm, Visual studio code
 ```
 
 ### Prerequisites / 선행 조건
@@ -42,13 +42,12 @@ vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브
 실행: ./maincpp/main
 ```
 
-### 코드 점검표
+## 코드 점검표
 
-왜 이렇게 동작하는지, 설명합니다
+테스트케이스와 테스트케이스를 실행했을때 예상 결과 확인용
 
-```
-예시
-```
+![그림1](https://user-images.githubusercontent.com/45057466/156676646-203ebefb-2279-4694-b3b2-de4cc10c3d61.png)
+
 
 
 ## Built With / 팀원
