@@ -47,13 +47,24 @@ vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브
 실행: ./maincpp/main
 ```
 
-## 실행화면
+## 실행화면 예시
 
-![전화번호조회](https://user-images.githubusercontent.com/45057466/156688286-c3fe3b37-0d55-4f4e-906a-0639abd1d895.PNG)
-![출차](https://user-images.githubusercontent.com/45057466/156688289-3248895b-195a-4d9c-a956-35dbf200b6e1.PNG)
+메인화면
 ![메인화면](https://user-images.githubusercontent.com/45057466/156688293-9cc96e5e-df8e-42fc-93c5-f3a50b50003b.PNG)
+
+전화번호조회
+![전화번호조회](https://user-images.githubusercontent.com/45057466/156688286-c3fe3b37-0d55-4f4e-906a-0639abd1d895.PNG)
+
+출차
+![출차](https://user-images.githubusercontent.com/45057466/156688289-3248895b-195a-4d9c-a956-35dbf200b6e1.PNG)
+
+회원등록
 ![회원등록](https://user-images.githubusercontent.com/45057466/156688294-89e6518a-9c78-408a-9ffa-f9a5c189850c.PNG)
+
+입차
 ![입차](https://user-images.githubusercontent.com/45057466/156688292-89f85fae-d75d-4dbc-be9a-c0d8678e70fa.PNG)
+
+현황보기
 ![현황보기](https://user-images.githubusercontent.com/45057466/156688288-ae5500d9-fe61-4a15-9843-c42e65373b06.PNG)
 
 
