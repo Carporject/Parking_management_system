@@ -26,8 +26,9 @@
 ### Installing / 설치
 
 
-Clone the repo : git clone https://github.com/M-Parking-Project/Parking_management_system.git
+
 ```
+Clone the repo : git clone https://github.com/M-Parking-Project/Parking_management_system.git
 MOBIS_06.tar -> tar -xvf MOBIS_06.tar
 vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브러리 위치 설정
 ```
