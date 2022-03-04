@@ -42,11 +42,6 @@ vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브
 실행: ./maincpp/main
 ```
 
-## 코드 점검표
-
-테스트케이스와 테스트케이스를 실행했을때 예상 결과 확인용
-
-![그림1](https://user-images.githubusercontent.com/45057466/156676646-203ebefb-2279-4694-b3b2-de4cc10c3d61.png)
 
 
 
