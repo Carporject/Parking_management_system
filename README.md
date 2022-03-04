@@ -74,6 +74,10 @@ vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브
 ![현황보기](https://user-images.githubusercontent.com/45057466/156688288-ae5500d9-fe61-4a15-9843-c42e65373b06.PNG)
 
 
+관리자모드 - 월별 추이
+
+![image](https://user-images.githubusercontent.com/45057466/156697580-c0454995-26d7-4839-aa4c-c6e3910bb3d9.png)
+
 
 ## Built With / 팀원
 
