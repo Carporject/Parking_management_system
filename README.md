@@ -37,7 +37,7 @@ vi .bashrc=>export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 공유라이브
 
 1. 압축파일을 다운
 2. tar -xvf MOBIS_06.tar 명령어를 사용하여 압축 해제
-3. .bashsrc 파일에 공유라이브러리 위치 설정 (export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 추가)
+3. .bashsrc 파일에 공유라이브러리 위치 설정 (ex : export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/pi/lib 추가)
 4. make명령어를 사용하여 컴파일
 5. ./maincpp/main을 입력하여 실행
 
